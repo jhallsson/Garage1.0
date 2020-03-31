@@ -4,7 +4,14 @@ using System.Text;
 
 namespace Garage_Josefin
 {
-    class Vehicle
+    public class Vehicle
     {
-    }
+        
+        public string RegNum { get; set; }
+        public string Color { get; set; }
+        public int WheelCount { get; set; }
+
+        //konstruktor
+
+}
 }
