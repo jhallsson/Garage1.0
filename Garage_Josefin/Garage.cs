@@ -9,6 +9,7 @@ namespace Garage_Josefin
     {
         
         private int garageCapacity;
+        private Vehicle[] vehicles;
 
         public int GarageCapacity
         {
@@ -27,6 +28,13 @@ namespace Garage_Josefin
         IEnumerator IEnumerable.GetEnumerator()
         {
             throw new NotImplementedException();
+        }
+
+        public int AddVehicle(Vehicle vehicle)
+        {
+            vehicles = new Vehicle[GarageCapacity]; //ToDo: bestäm med garagecapacity första gången?
+            vehicles[0] = vehicle;
+            return vehicles.Length;
         }
     }
 }

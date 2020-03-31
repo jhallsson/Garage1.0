@@ -19,5 +19,19 @@ namespace GarageTest
 
             Assert.AreEqual(actual, expected);
         }
+        [TestMethod]
+        public void AddVehicle_VehicleCount1()
+        {
+            var garage = new Garage<Vehicle>(3);
+            var vehicle = new Vehicle("ABC123", "black", 4);
+            
+            int expected = 1;
+            int actual = garage.AddVehicle(vehicle);
+
+            Assert.AreEqual(actual, expected);
+
+
+
+        }
     }
 }

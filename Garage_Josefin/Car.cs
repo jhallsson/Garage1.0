@@ -6,5 +6,18 @@ namespace Garage_Josefin
 {
     class Car : Vehicle
     {
+        private string brand;
+
+        public string Brand
+        {
+            get { return brand; }
+            set { brand = value; }
+        }
+
+        public Car(string brand, string regNumb, string color, int wheelCount)
+            : base(regNumb, color, wheelCount)
+        {
+            Brand=brand;
+        }
     }
 }

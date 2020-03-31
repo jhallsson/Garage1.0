@@ -6,12 +6,36 @@ namespace Garage_Josefin
 {
     public class Vehicle
     {
-        
-        public string RegNum { get; set; }
-        public string Color { get; set; }
-        public int WheelCount { get; set; }
+		private string regNumb;
 
-        //konstruktor
+		public string RegNumb
+		{
+			get { return regNumb; }
+			set { regNumb = value; }
+		}
+		private string color;
 
-}
+		public string Color
+		{
+			get { return color; }
+			set { color = value; }
+		}
+		private int wheelCount;
+
+		public int WheelCount
+		{
+			get { return wheelCount; }
+			set { wheelCount = value; }
+		}
+
+
+		public Vehicle(string regNumb, string color, int wheelCount)
+		{
+			RegNumb = regNumb;
+			Color = color;
+			WheelCount = wheelCount;
+		}
+
+
+	} 
 }
