@@ -7,20 +7,27 @@ namespace Garage_Josefin
 {
     public class GarageHandler
     {
-        
+        Garage<Vehicle> garage;
 
-        public Garage<Vehicle> CreateGarage(int capacity) //konstruktor?
+
+        public GarageHandler(int capacity)
+        {
+            garage = new Garage<Vehicle>(capacity); //ToDo: take in value for capacity
+            garage.GarageCapacity = capacity;
+            
+        }
+        /*public Garage<Vehicle> CreateGarage(int capacity) //konstruktor?
         {
             Garage<Vehicle> garage = new Garage<Vehicle>(capacity); //ToDo: take in value for capacity
             garage.GarageCapacity = capacity;
             return garage;
-        }
+        }*/
         public Vehicle CreateVehicle(string regNumb, string color, int wheelCount)
         {
             Vehicle vehicle = new Vehicle(regNumb, color, wheelCount);
             return vehicle;
         }
-        public bool Park(Vehicle vehicle, Garage<Vehicle> garage)   //ToDo: Gör om!!
+        public bool Park(Vehicle vehicle)   //ToDo: Gör om!!
         {
             Vehicle emptyValue = garage.Vehicles.Where(v => v == null).FirstOrDefault();
             
@@ -32,9 +39,9 @@ namespace Garage_Josefin
              return true;
         }
 
-        public Vehicle Leave(string regNr, Garage<Vehicle> garage)
+        public Vehicle Leave(string regNr)
         {
-            Vehicle vehicleLeaving = garage.Where(v => v.RegNumb == regNr).FirstOrDefault();
+            Vehicle vehicleLeaving = garage.Vehicles.Where(v => v.RegNumb == regNr).FirstOrDefault();
             int index = Array.IndexOf(garage.Vehicles, vehicleLeaving);
 
             for (int i = index; i < garage.Vehicles.Length; i++)
@@ -57,9 +64,11 @@ namespace Garage_Josefin
             throw new NotImplementedException();
         }
 
-        internal bool Search(string v)
+        internal bool Search(string regNr)
         {
-            throw new NotImplementedException();
+            Vehicle vehicleLeaving = garage.Where(v => v.RegNumb == regNr).FirstOrDefault();
+            int index = Array.IndexOf(garage.Vehicles, vehicleLeaving);
+            return true;
         }
     }
 }

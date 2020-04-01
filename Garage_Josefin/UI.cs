@@ -9,10 +9,11 @@ namespace Garage_Josefin
         public void Menu()
         {
             bool running = true;
-            GarageHandler handler = new GarageHandler();
+            
             Console.WriteLine("Welcome to the Garage App! Start by creating a garage.\nCapacity: ");
             int.TryParse(Console.ReadLine(), out int capacity);
-            var garage= handler.CreateGarage(capacity);
+            GarageHandler handler = new GarageHandler(capacity);
+            
             //ToDo: check input, check success
             Console.WriteLine("Garage succesfully built!");
             do
@@ -33,11 +34,11 @@ namespace Garage_Josefin
                 {
                     case '1': //ToDo: fkytta? byt ut hårdkod
                         var vehicle = handler.CreateVehicle("ABC123", "green", 4);
-                        handler.Park(vehicle, garage);
+                        handler.Park(vehicle);
                         Console.WriteLine($"Vehicle {vehicle.RegNumb} parked");
                         break;
                     case '2':
-                        var vehicleLeaving = handler.Leave("ABC123", garage);
+                        var vehicleLeaving = handler.Leave("ABC123");
                         Console.WriteLine($"Vehicle {vehicleLeaving.RegNumb} left");
                         break;
                     case '3':
@@ -47,7 +48,7 @@ namespace Garage_Josefin
                         Console.WriteLine(handler.ListVehicleTypes());
                         break;
                     case '5':
-                        Console.WriteLine(handler.Search("ABC123"))
+                        Console.WriteLine(handler.Search("ABC123"));
                         break;
                     case '0':
                         Console.WriteLine("Thank You for Using the Garage App! Good Bye!");
