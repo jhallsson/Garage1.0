@@ -46,8 +46,8 @@ namespace GarageTest
         public void AddTwoVehicles_ReturnTrue_Count2()
         {
             var garageHand = new GarageHandler(3);
-            var vehicle1 = new Vehicle("ABC123", "black", 4);
-            var vehicle2 = new Vehicle("DEF456", "black", 8);
+            var vehicle1 =garageHand.CreateVehicle("ABC123", "black", 4);
+            var vehicle2 = garageHand.CreateVehicle("DEF456", "black", 8);
 
             int expected = 2;
             bool actual = garageHand.Park(vehicle1);
@@ -60,17 +60,23 @@ namespace GarageTest
 
         }
         [TestMethod]
-        public void RemoveVehicle_ReturnTrue()
+        public void RemoveVehicle_ReturnLeavingVehicle()
         {
             var garageHand = new GarageHandler(3);
-            var vehicle1 = new Vehicle("ABC123", "black", 4);
-            var vehicle2 = new Vehicle("DEF456", "black", 8);
+            var vehicle1 = garageHand.CreateVehicle("ABC123", "black", 4); //instansera själv eller använda metod?
+            var vehicle2 = garageHand.CreateVehicle("DEF456", "black", 8);
+            garageHand.Park(vehicle1);
+            garageHand.Park(vehicle2);
 
-            string regNr = "ABC1230";
 
-            //bool actual = garageHand.Leave(regNr); //Vehicle
+            //ToDo: skapa != parkera
 
-            //Assert.IsTrue(actual);
+
+            string regNr = "ABC123";
+            
+            Vehicle actual = garageHand.Leave(regNr); //Vehicle
+
+            Assert.AreEqual(regNr, actual.RegNumb);
         }
     }
 }

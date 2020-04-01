@@ -40,8 +40,8 @@ namespace Garage_Josefin
         }
 
         public Vehicle Leave(string regNr)
-        {
-            Vehicle vehicleLeaving = garage.Vehicles.Where(v => v.RegNumb == regNr).FirstOrDefault();
+        {                                                   //input => method body
+            Vehicle vehicleLeaving = garage.Vehicles?.Where(v => v?.RegNumb == regNr).FirstOrDefault();
             int index = Array.IndexOf(garage.Vehicles, vehicleLeaving);
 
             for (int i = index; i < garage.Vehicles.Length; i++)
