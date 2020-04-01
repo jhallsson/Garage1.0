@@ -10,6 +10,7 @@ namespace Garage_Josefin
         
         private int garageCapacity;
         private Vehicle[] vehicles;
+       
 
         public int GarageCapacity
         {
@@ -17,10 +18,20 @@ namespace Garage_Josefin
             set { garageCapacity = value; }
         }
 
-        public Garage(int capacity){
-            GarageCapacity = capacity;
+        public Vehicle[] Vehicles 
+        { 
+            get => vehicles; 
+            set => vehicles = value; //park sätter värden? inte för hela utan index
         }
-        public IEnumerator<T> GetEnumerator()
+
+        public Garage(int capacity){
+            GarageCapacity = Math.Max(0, capacity);     //aldrig mindre än 0
+            //GarageCapacity = capacity;
+            Vehicles = new Vehicle[GarageCapacity];     //array lika stor som garaget
+        }
+
+        
+        public IEnumerator<T> GetEnumerator() //ToDo: implementera
         {
             throw new NotImplementedException();
         }
@@ -30,11 +41,6 @@ namespace Garage_Josefin
             throw new NotImplementedException();
         }
 
-        public int AddVehicle(Vehicle vehicle)
-        {
-            vehicles = new Vehicle[GarageCapacity]; //ToDo: bestäm med garagecapacity första gången?
-            vehicles[0] = vehicle;
-            return vehicles.Length;
-        }
+        
     }
 }
