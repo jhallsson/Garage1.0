@@ -15,6 +15,11 @@ namespace Garage_Josefin
             garage.GarageCapacity = capacity;
             return garage;
         }
+        public Vehicle CreateVehicle(string regNumb, string color, int wheelCount)
+        {
+            Vehicle vehicle = new Vehicle(regNumb, color, wheelCount);
+            return vehicle;
+        }
         public bool Park(Vehicle vehicle, Garage<Vehicle> garage)   //ToDo: Gör om!!
         {
             Vehicle emptyValue = garage.Vehicles.Where(v => v == null).FirstOrDefault();
@@ -27,7 +32,7 @@ namespace Garage_Josefin
              return true;
         }
 
-        public bool Leave(string regNr, Garage<Vehicle> garage)
+        public Vehicle Leave(string regNr, Garage<Vehicle> garage)
         {
             Vehicle vehicleLeaving = garage.Where(v => v.RegNumb == regNr).FirstOrDefault();
             int index = Array.IndexOf(garage.Vehicles, vehicleLeaving);
@@ -39,7 +44,7 @@ namespace Garage_Josefin
                 //DEF       =       null
             }
 
-            return true;
+            return vehicleLeaving; //ToDo: bool eller vehicle?
         }
     }
 }
