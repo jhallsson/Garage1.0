@@ -24,6 +24,7 @@ namespace Garage_Josefin
                     "\n 3. List" +
                     "\n 4. List by Type" +
                     "\n 5. Search" +
+                    "\n 6. Search with properties" + //ToDo: samma eller inte?
                     "\n 0. Close App");
 
                 char input = Console.ReadLine()[0];
@@ -40,15 +41,20 @@ namespace Garage_Josefin
                         Console.WriteLine($"Vehicle {vehicleLeaving.RegNumb} left");
                         break;
                     case '3':
+                        Console.WriteLine(handler.ListVehicles());
                         break;
                     case '4':
+                        Console.WriteLine(handler.ListVehicleTypes());
                         break;
                     case '5':
+                        Console.WriteLine(handler.Search("ABC123"))
                         break;
-                    case '0': 
+                    case '0':
+                        Console.WriteLine("Thank You for Using the Garage App! Good Bye!");
                         running = false;
                         break;
                     default:
+                        Console.WriteLine("Invalid input. Please try again.");
                         break;
                 }
 

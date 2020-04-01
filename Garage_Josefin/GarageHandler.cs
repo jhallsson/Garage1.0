@@ -46,5 +46,20 @@ namespace Garage_Josefin
 
             return vehicleLeaving; //ToDo: bool eller vehicle?
         }
+
+        internal bool ListVehicles()
+        {
+            throw new NotImplementedException();
+        }
+
+        internal bool ListVehicleTypes()
+        {
+            throw new NotImplementedException();
+        }
+
+        internal bool Search(string v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
