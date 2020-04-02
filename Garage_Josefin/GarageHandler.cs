@@ -41,17 +41,11 @@ namespace Garage_Josefin
         public bool Leave(string regNr)
         {
             int countBefore = CountVehicles();
-            regNr = regNr.ToUpper();
+            string search = regNr.ToUpper();
                                                             //input => method body
-            Vehicle vehicleLeaving = garage.Vehicles?.Where(v => v.RegNumb == regNr).FirstOrDefault();
+            Vehicle vehicleLeaving = garage.Vehicles?.Where(v => v.RegNumb == search).FirstOrDefault();
             int index = Array.IndexOf(garage.Vehicles, vehicleLeaving);
-
-            for (int i = index; i < garage.Vehicles.Length; i++)
-            {   //0                 3
-                garage.Vehicles[i] = garage.Vehicles[i++];
-                // ABC      =       DEF 
-                //DEF       =       null
-            }
+            garage.Vehicles[index] = null;
             int countAfter = CountVehicles();
             return countBefore > countAfter; //ToDo: bool eller vehicle?
              
@@ -76,7 +70,7 @@ namespace Garage_Josefin
             throw new NotImplementedException();
         }
 
-        public string Search(string regNr) //ToDo: understand ?-nullcheck
+        public string Search(string regNr) //ToDo: understand ?-nullcheck / gör om
         {
             regNr = regNr.ToUpper();            //ToDo: .toUpper fult/fel plats?
             Vehicle vehicle = garage.Vehicles?.Where(v => v?.RegNumb == regNr).FirstOrDefault(); 

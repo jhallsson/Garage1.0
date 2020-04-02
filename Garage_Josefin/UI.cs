@@ -10,16 +10,16 @@ namespace Garage_Josefin
         {
             bool running = true;
             
-            Console.WriteLine("Welcome to the Garage App! Start by creating a garage.\nCapacity: ");
+            Print("Welcome to the Garage App! Start by creating a garage.\nCapacity: ");
             int.TryParse(Console.ReadLine(), out int capacity);
             GarageHandler handler = new GarageHandler(capacity);
             
             //ToDo: check input, check success
-            Console.WriteLine("Garage succesfully built!");
+            Print("Garage succesfully built!");
             do
             {
                 
-                Console.WriteLine("\nNavigate through the menu by selecting a number." +
+                Print("\nNavigate through the menu by selecting a number." +
                     "\n 1. Park" +
                     "\n 2. Let Vehicle leave" + //dismiss??
                     "\n 3. List" +
@@ -38,20 +38,24 @@ namespace Garage_Josefin
                         string color = GetInput("Color: ");
                         int.TryParse(GetInput("Number of wheels: "),out int wheels);
                         var vehicle = handler.CreateVehicle(regNr, color, wheels);
-                        handler.Park(vehicle);
-                        //message success/!
-                        Console.WriteLine($"Vehicle {vehicle.RegNumb} parked");
+                        bool success = handler.Park(vehicle); //Todo: global variabel?
+                        if (success)
+                            Print($"Vehicle {vehicle.RegNumb} parked");
+                        else
+                            Print("Something went wrong"); //ToDo: samla
                         break;
                     case '2':
                         string leavingVehicle = GetInput("Type in the Reg. Number for the leaving vehicle: ");
-                        bool success = handler.Leave(leavingVehicle); //ToDo bool?
+                        success = handler.Leave(leavingVehicle); //ToDo bool?
                         if (success)
-                            Console.WriteLine($"Vehicle {leavingVehicle} left");
+                            Print($"Vehicle {leavingVehicle} left");
+                        else
+                            Print("Vehicle could not leave"); //ToDo: felmeddelanden
                         break;
-                    /*case '3':
-                        Console.WriteLine(handler.ListVehicles());
+                    case '3':
+                        handler.ListVehicles();
                         break;
-                    case '4':
+                    /*case '4':
                         Console.WriteLine(handler.ListVehicleTypes());
                         break;
                     case '5':
