@@ -70,12 +70,12 @@ namespace GarageTest
 
 
             //ToDo: skapa != parkera
-
-            string regNr = "ABC123";
+            string regNr = "abc123";
+            bool expected = true;
             
-            Vehicle actual = garageHand.Leave(regNr); //Vehicle
+            bool actual = garageHand.Leave(regNr); //Vehicle
 
-            Assert.AreEqual(regNr, actual.RegNumb);
+            Assert.AreEqual(expected, actual);
         }
         [TestMethod]
         public void FixRegNumber_ReturnUpperCase()

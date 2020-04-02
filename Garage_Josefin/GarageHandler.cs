@@ -19,13 +19,10 @@ namespace Garage_Josefin
         
         public Vehicle CreateVehicle(string regNumb, string color, int wheelCount)
         {
-            regNumb = regNumb.ToUpper();            //ToDo: .toUpper fult/fel plats?
                                                     //extra: color måste vara någon av förbestämd?
             Vehicle vehicle = new Vehicle(regNumb, color, wheelCount);
-            /*if (vehicle.RegNumb==regNumb)
-                return vehicle;
-            else */
-            return vehicle;                     //ToDo: inte kunna skapa utan rätt värden
+            
+            return vehicle;                     //ToDo: inte kunna skapa utan ifyllda värden
         }
         public bool Park(Vehicle vehicle)   //ToDo: Gör om!!
         {
@@ -41,8 +38,11 @@ namespace Garage_Josefin
             return countAfter > countBefore; //statement: true/false smart!!!
         }
 
-        public Vehicle Leave(string regNr)
-        {                                                   //input => method body
+        public bool Leave(string regNr)
+        {
+            int countBefore = CountVehicles();
+            regNr = regNr.ToUpper();
+                                                            //input => method body
             Vehicle vehicleLeaving = garage.Vehicles?.Where(v => v.RegNumb == regNr).FirstOrDefault();
             int index = Array.IndexOf(garage.Vehicles, vehicleLeaving);
 
@@ -52,7 +52,9 @@ namespace Garage_Josefin
                 // ABC      =       DEF 
                 //DEF       =       null
             }
-            return vehicleLeaving; //ToDo: bool eller vehicle?
+            int countAfter = CountVehicles();
+            return countBefore > countAfter; //ToDo: bool eller vehicle?
+             
         }
 
         public void ListVehicles() 

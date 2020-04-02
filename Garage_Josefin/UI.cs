@@ -43,8 +43,10 @@ namespace Garage_Josefin
                         Console.WriteLine($"Vehicle {vehicle.RegNumb} parked");
                         break;
                     case '2':
-                        var vehicleLeaving = handler.Leave("ABC123");
-                        Console.WriteLine($"Vehicle {vehicleLeaving.RegNumb} left");
+                        string leavingVehicle = GetInput("Type in the Reg. Number for the leaving vehicle: ");
+                        bool success = handler.Leave(leavingVehicle); //ToDo bool?
+                        if (success)
+                            Console.WriteLine($"Vehicle {leavingVehicle} left");
                         break;
                     /*case '3':
                         Console.WriteLine(handler.ListVehicles());
