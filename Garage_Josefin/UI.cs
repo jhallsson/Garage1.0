@@ -70,7 +70,15 @@ namespace Garage_Josefin
         private string GetInput(string message)
         {
             Console.WriteLine(message);
-            return Console.ReadLine();
+            string input = Console.ReadLine();
+            if (string.IsNullOrEmpty(input))
+            {
+                return "---"; //ToDo: error message
+            }
+            else
+            {
+                return input;   //ToDo: "0" ful lösning för tryparse? eller bättre än null?
+            }
         }
 
         public static void Print(string info)

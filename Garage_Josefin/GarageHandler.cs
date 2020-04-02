@@ -19,8 +19,13 @@ namespace Garage_Josefin
         
         public Vehicle CreateVehicle(string regNumb, string color, int wheelCount)
         {
+            regNumb = regNumb.ToUpper();            //ToDo: .toUpper fult/fel plats?
+                                                    //extra: color måste vara någon av förbestämd?
             Vehicle vehicle = new Vehicle(regNumb, color, wheelCount);
-            return vehicle;
+            /*if (vehicle.RegNumb==regNumb)
+                return vehicle;
+            else */
+            return vehicle;                     //ToDo: inte kunna skapa utan rätt värden
         }
         public bool Park(Vehicle vehicle)   //ToDo: Gör om!!
         {
@@ -50,7 +55,7 @@ namespace Garage_Josefin
             return vehicleLeaving; //ToDo: bool eller vehicle?
         }
 
-        public void ListVehicles() //eller egentligen T?
+        public void ListVehicles() 
         {
             //count
             //iterate all 

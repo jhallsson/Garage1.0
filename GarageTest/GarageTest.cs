@@ -50,13 +50,13 @@ namespace GarageTest
             var vehicle2 = garageHand.CreateVehicle("DEF456", "black", 8);
 
             int expected = 2;
-            bool actual = garageHand.Park(vehicle1);
-            bool actual2 = garageHand.Park(vehicle2);
+            garageHand.Park(vehicle1);
+            garageHand.Park(vehicle2);
+
+            int actual=garageHand.CountVehicles();
             //int count = garageHand.Vehicles.Count(v => v is Vehicle);
 
-            Assert.IsTrue(actual);
-            Assert.IsTrue(actual2);
-           // Assert.AreEqual(expected, count);
+           Assert.AreEqual(expected, actual);
 
         }
         [TestMethod]
@@ -89,7 +89,7 @@ namespace GarageTest
             Assert.AreEqual(expected, actual);
         }
         [TestMethod]
-        public void ListVehicles_WithFullCapacity_ReturnAllInArray()
+        public void ListVehicles_WithFullCapacity_ReturnAllIVehicles()
         {
             var garageHand = new GarageHandler(2);
             var vehicle = garageHand.CreateVehicle("abc123", "black", 4);
