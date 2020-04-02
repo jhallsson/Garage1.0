@@ -53,11 +53,6 @@ namespace Garage_Josefin
 
         public void ListVehicles() 
         {
-            //count
-            //iterate all 
-            //send to UI as message
-            //yeild?
-
             foreach (var vehicle in garage.Vehicles)
             {
                 string info = StringifyOutput(vehicle);

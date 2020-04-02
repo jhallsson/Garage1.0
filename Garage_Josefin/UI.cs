@@ -55,16 +55,18 @@ namespace Garage_Josefin
                     case '3':
                         handler.ListVehicles();
                         break;
-                    /*case '4':
-                        Console.WriteLine(handler.ListVehicleTypes());
+                    case '4':
+                        var type = GetInput("Wich Type of Vehicle?"); //ToDo: Finns i listan/finns inte i listan
+                        Print(type);                
+                        
                         break;
-                    case '5':
-                        Console.WriteLine(handler.Search("ABC123"));
-                        break;
-                    case '0':
-                        Console.WriteLine("Thank You for Using the Garage App! Good Bye!");
-                        running = false;
-                        break;*/
+                    /*case '5':
+                         Console.WriteLine(handler.Search("ABC123"));
+                         break;
+                     case '0':
+                         Console.WriteLine("Thank You for Using the Garage App! Good Bye!");
+                         running = false;
+                         break;*/
                     default:
                         Console.WriteLine("Invalid input. Please try again.");
                         break;
