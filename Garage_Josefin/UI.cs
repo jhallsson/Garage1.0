@@ -57,6 +57,10 @@ namespace Garage_Josefin
                         break;
                     case '4':
                         var type = GetInput("Wich Type of Vehicle?"); //ToDo: Finns i listan/finns inte i listan
+                        //string -> typ
+                        handler.ListVehicleTypes(type);
+                        //if vehicle is typ
+                        //print
                         Print(type);                
                         
                         break;
@@ -75,7 +79,7 @@ namespace Garage_Josefin
             } while (running);
         }
 
-        private string GetInput(string message)
+        private string GetInput(string message) //ToDo: fel att använda objekt? string, vehicle, int...
         {
             Console.WriteLine(message);
             string input = Console.ReadLine();

@@ -8,7 +8,7 @@ namespace Garage_Josefin
     public class GarageHandler
     {
         Garage<Vehicle> garage;
-
+        private Dictionary<string,Vehicle> types= new Dictionary<string, Vehicle>();
 
         public GarageHandler(int capacity)
         {
@@ -60,9 +60,10 @@ namespace Garage_Josefin
             }
         }
 
-        internal bool ListVehicleTypes()
+        internal void ListVehicleTypes(string type)
         {
-            throw new NotImplementedException();
+            //ToDo: dictionary? -> string + vehicle subklass
+            //if type= key lista alla i subklass
         }
 
         public string Search(string regNr) //ToDo: understand ?-nullcheck / gör om
