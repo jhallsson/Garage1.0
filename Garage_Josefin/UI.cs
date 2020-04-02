@@ -32,16 +32,21 @@ namespace Garage_Josefin
 
                 switch (input)
                 {
-                    case '1': //ToDo: fkytta? byt ut hårdkod
-                        var vehicle = handler.CreateVehicle("ABC123", "green", 4);
+                    case '1': 
+                        
+                        string regNr = GetInput("Reg. Number: ");//ToDo: flytta? 
+                        string color = GetInput("Color: ");
+                        int.TryParse(GetInput("Number of wheels: "),out int wheels);
+                        var vehicle = handler.CreateVehicle(regNr, color, wheels);
                         handler.Park(vehicle);
+                        //message success/!
                         Console.WriteLine($"Vehicle {vehicle.RegNumb} parked");
                         break;
                     case '2':
                         var vehicleLeaving = handler.Leave("ABC123");
                         Console.WriteLine($"Vehicle {vehicleLeaving.RegNumb} left");
                         break;
-                    case '3':
+                    /*case '3':
                         Console.WriteLine(handler.ListVehicles());
                         break;
                     case '4':
@@ -53,13 +58,24 @@ namespace Garage_Josefin
                     case '0':
                         Console.WriteLine("Thank You for Using the Garage App! Good Bye!");
                         running = false;
-                        break;
+                        break;*/
                     default:
                         Console.WriteLine("Invalid input. Please try again.");
                         break;
                 }
 
             } while (running);
+        }
+
+        private string GetInput(string message)
+        {
+            Console.WriteLine(message);
+            return Console.ReadLine();
+        }
+
+        public static void Print(string info)
+        {
+            Console.WriteLine(info);
         }
     }
 }

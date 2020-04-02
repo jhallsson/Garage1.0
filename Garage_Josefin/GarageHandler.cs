@@ -16,12 +16,7 @@ namespace Garage_Josefin
             garage.GarageCapacity = capacity;
             
         }
-        /*public Garage<Vehicle> CreateGarage(int capacity) //konstruktor?
-        {
-            Garage<Vehicle> garage = new Garage<Vehicle>(capacity); //ToDo: take in value for capacity
-            garage.GarageCapacity = capacity;
-            return garage;
-        }*/
+        
         public Vehicle CreateVehicle(string regNumb, string color, int wheelCount)
         {
             Vehicle vehicle = new Vehicle(regNumb, color, wheelCount);
@@ -29,19 +24,21 @@ namespace Garage_Josefin
         }
         public bool Park(Vehicle vehicle)   //ToDo: Gör om!!
         {
+            int countBefore = CountVehicles();
             Vehicle emptyValue = garage.Vehicles.Where(v => v == null).FirstOrDefault();
-            
             int emptyIndex = Array.IndexOf(garage.Vehicles, emptyValue);
            
             garage.Vehicles[emptyIndex] = vehicle;
 
-            int count = garage.Vehicles.Count(v => v is Vehicle); 
-             return true;
+            //int count = garage.Vehicles.Count(v => v is Vehicle); //ToDo:move
+            
+            int countAfter = CountVehicles();
+            return countAfter > countBefore; //statement: true/false smart!!!
         }
 
         public Vehicle Leave(string regNr)
         {                                                   //input => method body
-            Vehicle vehicleLeaving = garage.Vehicles?.Where(v => v?.RegNumb == regNr).FirstOrDefault();
+            Vehicle vehicleLeaving = garage.Vehicles?.Where(v => v.RegNumb == regNr).FirstOrDefault();
             int index = Array.IndexOf(garage.Vehicles, vehicleLeaving);
 
             for (int i = index; i < garage.Vehicles.Length; i++)
@@ -50,13 +47,21 @@ namespace Garage_Josefin
                 // ABC      =       DEF 
                 //DEF       =       null
             }
-
             return vehicleLeaving; //ToDo: bool eller vehicle?
         }
 
-        internal bool ListVehicles()
+        public void ListVehicles() //eller egentligen T?
         {
-            throw new NotImplementedException();
+            //count
+            //iterate all 
+            //send to UI as message
+            //yeild?
+
+            foreach (var vehicle in garage.Vehicles)
+            {
+                string info = StringifyOutput(vehicle);
+                UI.Print(info);
+            }
         }
 
         internal bool ListVehicleTypes()
@@ -64,11 +69,23 @@ namespace Garage_Josefin
             throw new NotImplementedException();
         }
 
-        internal bool Search(string regNr)
+        public string Search(string regNr) //ToDo: understand ?-nullcheck
         {
-            Vehicle vehicleLeaving = garage.Where(v => v.RegNumb == regNr).FirstOrDefault();
-            int index = Array.IndexOf(garage.Vehicles, vehicleLeaving);
-            return true;
+            regNr = regNr.ToUpper();            //ToDo: .toUpper fult/fel plats?
+            Vehicle vehicle = garage.Vehicles?.Where(v => v?.RegNumb == regNr).FirstOrDefault(); 
+            int index = Array.IndexOf(garage.Vehicles, vehicle);
+            return StringifyOutput(vehicle);
+        }
+        public string StringifyOutput(Vehicle vehicle)
+        {
+            string vehicleInfo = $"Vehicle: {vehicle.RegNumb}, color: {vehicle.Color}, {vehicle.WheelCount} wheels.";
+
+            return vehicleInfo;
+        }
+        public int CountVehicles()
+        {
+            int count = garage.Vehicles.Count(v => v is Vehicle);
+            return count;
         }
     }
 }

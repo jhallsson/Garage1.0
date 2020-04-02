@@ -71,12 +71,35 @@ namespace GarageTest
 
             //ToDo: skapa != parkera
 
-
             string regNr = "ABC123";
             
             Vehicle actual = garageHand.Leave(regNr); //Vehicle
 
             Assert.AreEqual(regNr, actual.RegNumb);
+        }
+        [TestMethod]
+        public void FixRegNumber_ReturnUpperCase()
+        {
+            var garageHand = new GarageHandler(3);
+            var vehicle = garageHand.CreateVehicle("abc123", "black", 4);
+            garageHand.Park(vehicle);
+            string expected = $"Vehicle: ABC123, color: black, 4 wheels.";
+        
+            string actual = garageHand.Search("abc123");
+            Assert.AreEqual(expected, actual);
+        }
+        [TestMethod]
+        public void ListVehicles_WithFullCapacity_ReturnAllInArray()
+        {
+            var garageHand = new GarageHandler(2);
+            var vehicle = garageHand.CreateVehicle("abc123", "black", 4);
+            var vehicle2 = garageHand.CreateVehicle("def123", "pink", 2);
+
+            garageHand.Park(vehicle);
+            garageHand.Park(vehicle2);
+
+            //ToDo: finish
+
         }
     }
 }

@@ -11,7 +11,7 @@ namespace Garage_Josefin
 		public string RegNumb
 		{
 			get { return regNumb; }
-			set { regNumb = value; }
+			set { regNumb = value.ToUpper(); } //ToDo: Rätt plats?
 		}
 		private string color;
 
