@@ -8,13 +8,13 @@ namespace Garage_Josefin
     public class GarageHandler
     {
         Garage<Vehicle> garage;
-        private Dictionary<string,Vehicle> types= new Dictionary<string, Vehicle>();
+        
 
         public GarageHandler(int capacity)
         {
             garage = new Garage<Vehicle>(capacity); //ToDo: take in value for capacity
             garage.GarageCapacity = capacity;
-            
+            FullGarage();
         }
         
         public Vehicle CreateVehicle(string regNumb, string color, int wheelCount)
@@ -62,8 +62,48 @@ namespace Garage_Josefin
 
         internal void ListVehicleTypes(string type)
         {
-            //ToDo: dictionary? -> string + vehicle subklass
+            //ToDo: kod
+            //lista över typer - gå igenom - hitta rätt - lista
+            //if type=list[n] -> 
             //if type= key lista alla i subklass
+
+            foreach (var vehicle in garage.Vehicles)
+            {
+                string info="";
+                //switch? så länge
+                type = type.ToLower();
+                switch (type)
+                {
+                    case "vehicle":
+                        ListVehicles();
+                        break;
+                    case "airplane":
+                        if(vehicle is Airplane)
+                        info = StringifyOutput(vehicle);
+                        break;
+                    case "boat":
+                        if (vehicle is Boat)
+                        info = StringifyOutput(vehicle);
+                        break;
+                    case "bus":
+                        if (vehicle is Bus)
+                        info = StringifyOutput(vehicle);
+                        break;
+                    case "car":
+                        if (vehicle is Car)
+                        info = StringifyOutput(vehicle);
+                        break;
+                    case "motorcycle":
+                        if (vehicle is Motorcycle)
+                        info = StringifyOutput(vehicle);
+                        break;
+                    default: 
+                        info = "The type doesn't exist";
+                        break;
+                }
+                
+                UI.Print(info);
+            }
         }
 
         public string Search(string regNr) //ToDo: understand ?-nullcheck / gör om
@@ -83,6 +123,14 @@ namespace Garage_Josefin
         {
             int count = garage.Vehicles.Count(v => v is Vehicle);
             return count;
+        }
+        public void FullGarage()
+        {
+            //create
+
+            //lägg till fordon
+            //parkera
+            
         }
     }
 }

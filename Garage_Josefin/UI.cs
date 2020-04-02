@@ -93,9 +93,10 @@ namespace Garage_Josefin
             }
         }
 
-        public static void Print(string info)
+        public static void Print(string info) //måste vara static?
         {
             Console.WriteLine(info);
         }
+        
     }
 }
