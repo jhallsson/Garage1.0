@@ -77,8 +77,42 @@ namespace Garage_Josefin
             } while (running);
         }
 
+        public string GetInput(string message, string typeOfInput) //ToDo: fel att använda objekt? string, vehicle, int...
+        {
+            //ToDo: skicka med typ av input och kör rätt metod efter nullcheck?
+            //do while?
+            bool wrongInput = true;
+            string input;
+            do
+            {
+                Console.WriteLine(message);
+                input = Console.ReadLine();
+                if (string.IsNullOrEmpty(input))
+                {
+                    switch (typeOfInput)
+                    {
+                        case "airplane":
+                            break;
+                        default:
+                            break;
+                    }
+                    //case typeOfInput = "type"
+                    //iterera handler.typeList
+                    //if input!=listItem
+                    //print(unvalid)
+                    Print("Unvalid Input. Try Again!"); //ToDo: error message
+                }
+                else
+                {
+                    wrongInput = false;
+                }
+            } while (wrongInput);
+            return input;   //ToDo: "0" ful lösning för tryparse? eller bättre än null?
+
+        }
         public string GetInput(string message) //ToDo: fel att använda objekt? string, vehicle, int...
         {
+            //ToDo: skicka med typ av input och kör rätt metod efter nullcheck?
             //do while?
             bool wrongInput = true;
             string input;
@@ -98,7 +132,6 @@ namespace Garage_Josefin
             return input;   //ToDo: "0" ful lösning för tryparse? eller bättre än null?
 
         }
-
         public void Print(string info) //måste vara static?
         {
             Console.WriteLine(info);

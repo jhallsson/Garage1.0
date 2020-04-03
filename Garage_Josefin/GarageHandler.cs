@@ -20,11 +20,19 @@ namespace Garage_Josefin
         public Vehicle CreateVehicle(/*string type, string regNr, string color, int wheels*/) //vilken typ??
         {                                                //skicka typ(string), reg, col, whe, subegen?? fråga i case?
             //ToDo: Switch - för mycket upprepning?
-            string type = console.GetInput("Type of Vehicle: ").ToLower(); //ToDo: säg till om invalid input inte bara för null!
-            string regNr = console.GetInput("Reg. Number: ");       
+            string type = console.GetInput("Type of Vehicle: ","type").ToLower(); //ToDo: säg till om invalid input inte bara för null!
+            //type!=car||boat||osv try again
+            //lista? iterera efter match
+            //ToDo: vart ska checken ligga?
+            string regNr = console.GetInput("Reg. Number: ","regNr");
+            //if regNr.length!=6
+                //if regNr[0]-[2]!=type string
+                //&& regNr[3-5]!=int
             string color = console.GetInput("Color: ");
-            int.TryParse(console.GetInput("Number of wheels: "), out int wheels);
+            int.TryParse(console.GetInput("Number of wheels: "), out int wheels); //else?
+            
             //ToDo: ska man kunna skapa typ vehicle bara?
+            
             switch (type)
             {
                 case "airplane":
