@@ -33,19 +33,25 @@ namespace Garage_Josefin
                 switch (input)
                 {
                     case '1':
-
-                        var vehicle = handler.CreateVehicle();
-
-                        bool success = handler.Park(vehicle); //Todo: global variabel?
-                        if (success)
-                            Print($"Vehicle {vehicle.RegNumb} parked");
+                        if (handler.GarageIsFull())
+                        {
+                            Print("The Garage is Full! One or More Vehicles Need to Leave");
+                        }
                         else
-                            Print("Something went wrong"); //ToDo: samla
-                        break;
+                        {
+                            var vehicle = handler.CreateVehicle();
+                            bool parked = handler.Park(vehicle); //Todo: global variabel?
+
+                            if (parked)
+                                Print($"Vehicle {vehicle.RegNumb} parked");
+                            else
+                                Print("Something went wrong"); //ToDo: samla
+                        }
+                            break;
                     case '2':
                         string leavingVehicle = GetInput("Type in the Reg. Number for the leaving vehicle: ");
-                        success = handler.Leave(leavingVehicle); //ToDo bool?
-                        if (success)
+                        bool left = handler.Leave(leavingVehicle); //ToDo bool?
+                        if (left)
                             Print($"Vehicle {leavingVehicle} left");
                         else
                             Print("Vehicle could not leave"); //ToDo: felmeddelanden
@@ -59,8 +65,8 @@ namespace Garage_Josefin
                         handler.ListVehicleTypes(type);
                         //if vehicle is typ
                         //print
-                        Print(type);                
-                        
+                        Print(type);
+
                         break;
                     /*case '5':
                          Console.WriteLine(handler.Search("ABC123"));
@@ -72,6 +78,7 @@ namespace Garage_Josefin
                     default:
                         Console.WriteLine("Invalid input. Please try again.");
                         break;
+                
                 }
 
             } while (running);
@@ -119,7 +126,21 @@ namespace Garage_Josefin
 
         private bool TryRegNumbInput(string input)
         {
-            
+            bool returnValue=false;
+            if (input.Length == 6)
+            {
+                for (int i = 0; i < 3; i++)     //ToDo: använd linq
+                {
+                    if (char.IsLetter(input[i]))
+                        returnValue = true;
+                }
+                for (int i = 3; i < 6; i++)
+                {
+                    if (char.IsDigit(input[i]))
+                        returnValue= true;     
+                }
+            }
+            return returnValue;
         }
 
         private bool TryTypeInput(string input)

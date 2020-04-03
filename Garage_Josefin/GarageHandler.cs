@@ -20,57 +20,58 @@ namespace Garage_Josefin
         
         public Vehicle CreateVehicle(/*string type, string regNr, string color, int wheels*/) //vilken typ??
         {                                                //skicka typ(string), reg, col, whe, subegen?? fråga i case?
-            //ToDo: Switch - för mycket upprepning?
-            string type = console.GetInput("Type of Vehicle: ","type").ToLower(); //ToDo: säg till om invalid input inte bara för null!
-            //type!=car||boat||osv try again
-            //lista? iterera efter match
-            //ToDo: vart ska checken ligga?
-            string regNr = console.GetInput("Reg. Number: ","regNr");
-            //if regNr.length!=6
-                //if regNr[0]-[2]!=type string
-                //&& regNr[3-5]!=int
-            string color = console.GetInput("Color: ");
-            int.TryParse(console.GetInput("Number of wheels: "), out int wheels); //else?
             
-            //ToDo: ska man kunna skapa typ vehicle bara?
-            
-            switch (type)
-            {
-                case "airplane":
-                    int.TryParse(console.GetInput("Seats: "), out int seats);
-                    Vehicle airplane = new Airplane(seats, regNr, color, wheels);
-                    return airplane; //return på varje?
-                    
-                case "boat":
-                    double.TryParse(console.GetInput("Draft: "), out double draft);
-                    Vehicle boat = new Boat(draft, regNr, color, wheels);
-                    return boat;
-                case "bus":
-                    double.TryParse(console.GetInput("Length: "), out double length);
-                    Vehicle bus = new Bus(length, regNr, color, wheels);
-                    return bus;
-                case "car":
-                    string brand = console.GetInput("Which Brand?");
-                    Vehicle car = new Car(brand, regNr, color, wheels);
-                    return car;
-                case "motorcycle":
-                    double.TryParse(console.GetInput("Top Speed: "), out double topSpeed);
-                    Vehicle motorcycle = new Motorcycle(topSpeed, regNr, color, wheels);
-                    return motorcycle;
+                //ToDo: Switch - för mycket upprepning?
+                string type = console.GetInput("Type of Vehicle: ", "type").ToLower(); //ToDo: säg till om invalid input inte bara för null!
+                string regNr = console.GetInput("Reg. Number: ", "regNr");
+                string color = console.GetInput("Color: ");
+                int.TryParse(console.GetInput("Number of wheels: "), out int wheels); //else?
+                //värden kommer inte tillbaka förrän de är okej
+
+                switch (type)
+                {
+                    case "airplane":
+                        int.TryParse(console.GetInput("Seats: "), out int seats);
+                        Vehicle airplane = new Airplane(seats, regNr, color, wheels);
+                        return airplane; //return på varje?
+                    case "boat":
+                        double.TryParse(console.GetInput("Draft: "), out double draft);
+                        Vehicle boat = new Boat(draft, regNr, color, wheels);
+                        return boat;
+                    case "bus":
+                        double.TryParse(console.GetInput("Length: "), out double length);
+                        Vehicle bus = new Bus(length, regNr, color, wheels);
+                        return bus;
+                    case "car":
+                        string brand = console.GetInput("Which Brand?");
+                        Vehicle car = new Car(brand, regNr, color, wheels);
+                        return car;
+                    case "motorcycle":
+                        double.TryParse(console.GetInput("Top Speed: "), out double topSpeed);
+                        Vehicle motorcycle = new Motorcycle(topSpeed, regNr, color, wheels);
+                        return motorcycle;
                 default:
                     console.Print("Something Went Wrong. Try Again.");
-                    Vehicle v = CreateVehicle();
-                    
-                     //new Vehicle("---123", "---", 0); //anropa create igen? börjar man om då?
-                    return v; //ToDo: bättre lösning!
+                    //om värdena är checkade borde den inte nå default
+                    Vehicle v = new Vehicle("---123","---",0);
+                    return v;
+                    //ToDo: bättre lösning!
             }
-            //extra: color måste vara någon av förbestämd?
-            //Vehicle vehicle = new Vehicle(regNumb, color, wheelCount);//ToDo: kunna skapa subklasser också
+                //extra: color måste vara någon av förbestämd?
+                //Vehicle vehicle = new Vehicle(regNumb, color, wheelCount);//ToDo: kunna skapa subklasser också
 
-            //return newVehicle;     //ToDo: blir det fel att sätta newvehicle = car/bus/boat? 
-                                    //eller sätta newVehicle i varje Case
-            //ToDo: inte kunna skapa utan ifyllda värden
+                //return newVehicle;     //ToDo: blir det fel att sätta newvehicle = car/bus/boat? 
+                //eller sätta newVehicle i varje Case
+                //ToDo: inte kunna skapa utan ifyllda värden
+            
+            
         }
+
+        internal bool GarageIsFull()
+        {
+            return CountVehicles() >= garage.GarageCapacity;
+        }
+
         public bool Park(Vehicle vehicle)   //ToDo: Gör om!!
         {
             int countBefore = CountVehicles();
