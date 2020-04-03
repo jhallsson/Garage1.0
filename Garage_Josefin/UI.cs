@@ -54,7 +54,7 @@ namespace Garage_Josefin
                         handler.ListVehicles();
                         break;
                     case '4':
-                        type = GetInput("Wich Type of Vehicle?"); //ToDo: Finns i listan/finns inte i listan
+                        string type = GetInput("Wich Type of Vehicle?"); //ToDo: Finns i listan/finns inte i listan
                         //string -> typ
                         handler.ListVehicleTypes(type);
                         //if vehicle is typ
