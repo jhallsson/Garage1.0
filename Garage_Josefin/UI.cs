@@ -13,8 +13,6 @@ namespace Garage_Josefin
 
             Print("Welcome to the Garage App! Start by creating a garage.\n");
             
-            
-
             //ToDo: check input, check success
             Print("Garage succesfully built!");
             do
@@ -79,6 +77,18 @@ namespace Garage_Josefin
                             Print($"{searched.ToUpper()} is not in the Garage");
 
                         break;
+                    case '6':
+                        /*fråga(vilka /)vilket property(/ max fyra ? )typ, color x, wheels x
+                        
+                        Söka efter fordon utifrån en  egenskap eller flera.
+                        Till exempel alla svarta fordonmed fyra hjul.
+                        Eller enbart alla motorcyklar som är rosa och har 3 hjul
+
+                        (
+                        antingen color brown eller 1.brown 2.brown
+                        eller hitta om det finns något property som heter samma som ex "brown"
+                        if vehicles.color contains*/
+                        break; 
                     case '0':
                         Print("Thank You for Using the Garage App! Good Bye!");
                         running = false;

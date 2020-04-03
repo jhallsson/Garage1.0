@@ -30,7 +30,7 @@ namespace Garage_Josefin
                 //ToDo: Switch - för mycket upprepning?
                 string type = console.GetInput("Type of Vehicle: ", "Type").ToLower(); //ToDo: säg till om invalid input inte bara för null!
                 string regNr = console.GetInput("Reg. Number: ", "RegNr");
-            //if(console.TryRegNumbInput(regNr));
+            
             //ToDo: regnr exists already
             
                 string color = console.GetInput("Color: ");
@@ -42,7 +42,7 @@ namespace Garage_Josefin
                     case "airplane":
                         int.TryParse(console.GetInput("Seats: "), out int seats);
                         Vehicle airplane = new Airplane(seats, regNr, color, wheels);
-                        return airplane; //return på varje?
+                        return airplane;
                     case "boat":
                         double.TryParse(console.GetInput("Draft: "), out double draft);
                         Vehicle boat = new Boat(draft, regNr, color, wheels);
@@ -182,6 +182,40 @@ namespace Garage_Josefin
                 return StringifyOutput(vehicle);
             
             
+        }
+        public void SearchProperty()
+        {
+            /*typ: x / null color: x / null...
+                    if (typ != null)
+            vehicles.where*/
+            string type = console.GetInput("Type: ").ToLower();
+            string color = console.GetInput("Color: ");
+            string wheelCount= console.GetInput("Wheels: ");
+            List<Vehicle> searchList = new List<Vehicle>;
+            if (!string.IsNullOrEmpty(type))
+            {
+                switch (type)
+                {
+                    case "airplane":
+                        garage.Vehicles.Where(v => v is Airplane).ToList(); //ToDo: rätt att välja tolist?
+                        break;
+                    case "boat":
+                        searchList = garage.Vehicles.Where(v => v is Boat).ToList(); //ToDo: hitta hur man kan skicka typ
+                        break;
+                    default:
+                        break;
+                }
+            }else if (!string.IsNullOrEmpty(color))
+            {
+                searchList = searchList.Where(v => v.Color == color).ToList();
+            }else if (int.TryParse(wheelCount, out int wheels))
+            {
+            //ToDo: hur gör jag med int?
+            searchList = searchList.Where(v => v.WheelCount == wheels).ToList();
+            }
+
+
+
         }
         public string StringifyOutput(Vehicle vehicle) //ToDo: använd .tostring istället?
         {
