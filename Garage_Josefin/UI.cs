@@ -97,36 +97,28 @@ namespace Garage_Josefin
                 if (string.IsNullOrEmpty(input))
                 {
                      //ToDo: error message
-                    Print("Unvalid Input. Try Again!");
+                    Print("\nUnvalid Input. Try Again!");
                 }
                 else
                 {
-                    switch (input)
-                    {
-                        case "type":
-                            bool accepted = TryTypeInput(input); //funkar det att deklarera i case?
-                            if (accepted)
-                                wrongInput = false;
-                            break;
-                        case "regNr":
-                            accepted = TryRegNumbInput(input);
-                            if (accepted)
-                                wrongInput = false;
-                            break;
-                        default:
-
-                            break;
-                    }
-                    //wrongInput = false;
+                    bool accepted = false;
+                    if(typeOfInput=="Type")
+                        accepted = TryTypeInput(input);
+                    else if(typeOfInput == "RegNr")
+                        accepted = TryRegNumbInput(input);
+                    if (accepted) 
+                        wrongInput = false;
+                    else
+                        Print("Invalid input. Try Again!");//ToDo: byt
                 }
             } while (wrongInput);
             return input;   //ToDo: "0" ful lösning för tryparse? eller bättre än null?
 
         }
 
-        private bool TryRegNumbInput(string input)
+        public bool TryRegNumbInput(string input)
         {
-            bool returnValue=false;
+            bool returnValue=false; //ToDo: kolla om det redan finns
             if (input.Length == 6)
             {
                 for (int i = 0; i < 3; i++)     //ToDo: använd linq
@@ -147,14 +139,9 @@ namespace Garage_Josefin
         {
             bool returnValue = false;
             List<string> typeList = new List<string>() { "airplane", "boat", "bus", "car", "motorcycle" };
+
+            returnValue = typeList.Contains(input);
             
-            foreach (string type in typeList)
-            {
-                if (input == type)
-                    returnValue= true;
-                else
-                    returnValue= false;
-            }
             return returnValue;
 
         }

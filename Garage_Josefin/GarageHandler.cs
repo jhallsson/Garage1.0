@@ -22,8 +22,9 @@ namespace Garage_Josefin
         {                                                //skicka typ(string), reg, col, whe, subegen?? fråga i case?
             
                 //ToDo: Switch - för mycket upprepning?
-                string type = console.GetInput("Type of Vehicle: ", "type").ToLower(); //ToDo: säg till om invalid input inte bara för null!
-                string regNr = console.GetInput("Reg. Number: ", "regNr");
+                string type = console.GetInput("Type of Vehicle: ", "Type").ToLower(); //ToDo: säg till om invalid input inte bara för null!
+                string regNr = console.GetInput("Reg. Number: ", "RegNr");
+                //if(console.TryRegNumbInput(regNr));
                 string color = console.GetInput("Color: ");
                 int.TryParse(console.GetInput("Number of wheels: "), out int wheels); //else?
                 //värden kommer inte tillbaka förrän de är okej
@@ -101,6 +102,7 @@ namespace Garage_Josefin
 
         public void ListVehicles() 
         {
+            //ToDo:funkar inte för null
             foreach (var vehicle in garage.Vehicles)
             {
                 string info = StringifyOutput(vehicle);
@@ -163,7 +165,8 @@ namespace Garage_Josefin
         }
         public string StringifyOutput(Vehicle vehicle) //ToDo: använd .tostring istället?
         {
-            string vehicleInfo = $"Vehicle: {vehicle.RegNumb}, color: {vehicle.Color}, {vehicle.WheelCount} wheels.";
+
+            string vehicleInfo = $"{vehicle.RegNumb}, {vehicle.Color}, {vehicle.WheelCount} wheels.";
 
             return vehicleInfo;
         }
