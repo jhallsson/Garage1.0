@@ -24,7 +24,9 @@ namespace Garage_Josefin
                 //ToDo: Switch - för mycket upprepning?
                 string type = console.GetInput("Type of Vehicle: ", "Type").ToLower(); //ToDo: säg till om invalid input inte bara för null!
                 string regNr = console.GetInput("Reg. Number: ", "RegNr");
-                //if(console.TryRegNumbInput(regNr));
+            //if(console.TryRegNumbInput(regNr));
+            //ToDo: regnr exists already
+            
                 string color = console.GetInput("Color: ");
                 int.TryParse(console.GetInput("Number of wheels: "), out int wheels); //else?
                 //värden kommer inte tillbaka förrän de är okej
@@ -68,6 +70,11 @@ namespace Garage_Josefin
             
         }
 
+        public bool RegNumberExists(string regNumber)
+        {
+            return garage.Vehicles.Any(v => v.RegNumb == regNumber);
+        }
+
         internal bool GarageIsFull()
         {
             return CountVehicles() >= garage.GarageCapacity;
@@ -105,8 +112,11 @@ namespace Garage_Josefin
             //ToDo:funkar inte för null
             foreach (var vehicle in garage.Vehicles)
             {
-                string info = StringifyOutput(vehicle);
-                console.Print(info);
+                if (vehicle is Vehicle)
+                {
+                    string info = StringifyOutput(vehicle);
+                    console.Print(info);
+                }
             }
         }
 
@@ -159,9 +169,13 @@ namespace Garage_Josefin
         public string Search(string regNr) //ToDo: understand ?-nullcheck / gör om
         {
             regNr = regNr.ToUpper();            //ToDo: .toUpper fult/fel plats?
-            Vehicle vehicle = garage.Vehicles?.Where(v => v?.RegNumb == regNr).FirstOrDefault(); 
-            int index = Array.IndexOf(garage.Vehicles, vehicle);
-            return StringifyOutput(vehicle);
+            /*if (RegNumberExists(regNr))
+            {*/
+                Vehicle vehicle = garage.Vehicles?.Where(v => v?.RegNumb == regNr).FirstOrDefault();
+                int index = Array.IndexOf(garage.Vehicles, vehicle);
+                return StringifyOutput(vehicle);
+            
+            
         }
         public string StringifyOutput(Vehicle vehicle) //ToDo: använd .tostring istället?
         {

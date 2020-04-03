@@ -46,8 +46,8 @@ namespace GarageTest
         public void AddTwoVehicles_ReturnTrue_Count2()
         {
             var garageHand = new GarageHandler(3);
-            var vehicle1 =garageHand.CreateVehicle("ABC123", "black", 4);
-            var vehicle2 = garageHand.CreateVehicle("DEF456", "black", 8);
+            var vehicle1 =garageHand.CreateVehicle("car","ABC123", "black", 4);
+            var vehicle2 = garageHand.CreateVehicle("boat","DEF456", "black", 8);
 
             int expected = 2;
             garageHand.Park(vehicle1);

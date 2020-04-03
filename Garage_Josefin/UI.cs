@@ -6,19 +6,20 @@ namespace Garage_Josefin
 {
     public class UI
     {
+        GarageHandler handler;
         public void Menu()
         {
             bool running = true;
-            
+
             Print("Welcome to the Garage App! Start by creating a garage.\nCapacity: ");
             int.TryParse(Console.ReadLine(), out int capacity);
-            GarageHandler handler = new GarageHandler(capacity);
-            
+            handler = new GarageHandler(capacity);
+
             //ToDo: check input, check success
             Print("Garage succesfully built!");
             do
             {
-                
+
                 Print("\nNavigate through the menu by selecting a number." +
                     "\n 1. Park" +
                     "\n 2. Let Vehicle leave" + //dismiss??
@@ -47,7 +48,7 @@ namespace Garage_Josefin
                             else
                                 Print("Something went wrong"); //ToDo: samla
                         }
-                            break;
+                        break;
                     case '2':
                         string leavingVehicle = GetInput("Type in the Reg. Number for the leaving vehicle: ");
                         bool left = handler.Leave(leavingVehicle); //ToDo bool?
@@ -61,24 +62,31 @@ namespace Garage_Josefin
                         break;
                     case '4':
                         string type = GetInput("Wich Type of Vehicle?"); //ToDo: Finns i listan/finns inte i listan
-                        //string -> typ
-                        handler.ListVehicleTypes(type);
-                        //if vehicle is typ
-                        //print
-                        Print(type);
+                        bool validType = TryTypeInput(type);
+                        if (validType)
+                        {
+                            //Print($"All {type}s in the Garage: ");
+                            handler.ListVehicleTypes(type);
+
+                        }
+                        else
+                            Print("Unvalid input. Try Again");
 
                         break;
-                    /*case '5':
-                         Console.WriteLine(handler.Search("ABC123"));
-                         break;
-                     case '0':
-                         Console.WriteLine("Thank You for Using the Garage App! Good Bye!");
-                         running = false;
-                         break;*/
+                    case '5':
+                        string searched = GetInput("Type in Reg. Number: ");
+                        if (!handler.RegNumberExists(searched))
+                            Print($"{searched.ToUpper()} is not in the Garage");
+
+                        break;
+                    case '0':
+                        Print("Thank You for Using the Garage App! Good Bye!");
+                        running = false;
+                        break;
                     default:
                         Console.WriteLine("Invalid input. Please try again.");
                         break;
-                
+
                 }
 
             } while (running);
@@ -93,20 +101,20 @@ namespace Garage_Josefin
             do                  //ToDo: provkör
             {
                 Console.WriteLine(message);
-                input = Console.ReadLine();
+                input = Console.ReadLine().ToUpper();//ToDo: vart ska jag lägga toupper
                 if (string.IsNullOrEmpty(input))
                 {
-                     //ToDo: error message
+                    //ToDo: error message
                     Print("\nUnvalid Input. Try Again!");
                 }
                 else
                 {
                     bool accepted = false;
-                    if(typeOfInput=="Type")
+                    if (typeOfInput == "Type")
                         accepted = TryTypeInput(input);
-                    else if(typeOfInput == "RegNr")
+                    else if (typeOfInput == "RegNr")
                         accepted = TryRegNumbInput(input);
-                    if (accepted) 
+                    if (accepted)
                         wrongInput = false;
                     else
                         Print("Invalid input. Try Again!");//ToDo: byt
@@ -118,8 +126,9 @@ namespace Garage_Josefin
 
         public bool TryRegNumbInput(string input)
         {
-            bool returnValue=false; //ToDo: kolla om det redan finns
-            if (input.Length == 6)
+            bool returnValue = false; //ToDo: kolla om det redan finns
+            bool exist = handler.RegNumberExists(input);
+            if (input.Length == 6 && !exist)
             {
                 for (int i = 0; i < 3; i++)     //ToDo: använd linq
                 {
@@ -129,7 +138,7 @@ namespace Garage_Josefin
                 for (int i = 3; i < 6; i++)
                 {
                     if (char.IsDigit(input[i]))
-                        returnValue= true;     
+                        returnValue = true;
                 }
             }
             return returnValue;
@@ -141,7 +150,7 @@ namespace Garage_Josefin
             List<string> typeList = new List<string>() { "airplane", "boat", "bus", "car", "motorcycle" };
 
             returnValue = typeList.Contains(input);
-            
+
             return returnValue;
 
         }
@@ -172,6 +181,6 @@ namespace Garage_Josefin
         {
             Console.WriteLine(info);
         }
-        
+     
     }
 }
