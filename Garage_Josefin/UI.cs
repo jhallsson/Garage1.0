@@ -83,35 +83,43 @@ namespace Garage_Josefin
             //do while?
             bool wrongInput = true;
             string input;
-            do
+            do                  //ToDo: provkör
             {
                 Console.WriteLine(message);
                 input = Console.ReadLine();
                 if (string.IsNullOrEmpty(input))
                 {
-                    switch (input)
-                    {
-                        case "type":
-                            bool accepted= TryTypeInput(input);
-                            break;
-                        case "regNr":
-                            break;
-                        default:
-                            break;
-                    }
-                    //case typeOfInput = "type"
-
-                    //if input!=listItem
-                    //print(unvalid)
-                    Print("Unvalid Input. Try Again!"); //ToDo: error message
+                     //ToDo: error message
+                    Print("Unvalid Input. Try Again!");
                 }
                 else
                 {
-                    wrongInput = false;
+                    switch (input)
+                    {
+                        case "type":
+                            bool accepted = TryTypeInput(input); //funkar det att deklarera i case?
+                            if (accepted)
+                                wrongInput = false;
+                            break;
+                        case "regNr":
+                            accepted = TryRegNumbInput(input);
+                            if (accepted)
+                                wrongInput = false;
+                            break;
+                        default:
+
+                            break;
+                    }
+                    //wrongInput = false;
                 }
             } while (wrongInput);
             return input;   //ToDo: "0" ful lösning för tryparse? eller bättre än null?
 
+        }
+
+        private bool TryRegNumbInput(string input)
+        {
+            
         }
 
         private bool TryTypeInput(string input)
