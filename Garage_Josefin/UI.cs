@@ -89,15 +89,18 @@ namespace Garage_Josefin
                 input = Console.ReadLine();
                 if (string.IsNullOrEmpty(input))
                 {
-                    switch (typeOfInput)
+                    switch (input)
                     {
-                        case "airplane":
+                        case "type":
+                            bool accepted= TryTypeInput(input);
+                            break;
+                        case "regNr":
                             break;
                         default:
                             break;
                     }
                     //case typeOfInput = "type"
-                    //iterera handler.typeList
+
                     //if input!=listItem
                     //print(unvalid)
                     Print("Unvalid Input. Try Again!"); //ToDo: error message
@@ -110,6 +113,23 @@ namespace Garage_Josefin
             return input;   //ToDo: "0" ful lösning för tryparse? eller bättre än null?
 
         }
+
+        private bool TryTypeInput(string input)
+        {
+            bool returnValue = false;
+            List<string> typeList = new List<string>() { "airplane", "boat", "bus", "car", "motorcycle" };
+            
+            foreach (string type in typeList)
+            {
+                if (input == type)
+                    returnValue= true;
+                else
+                    returnValue= false;
+            }
+            return returnValue;
+
+        }
+
         public string GetInput(string message) //ToDo: fel att använda objekt? string, vehicle, int...
         {
             //ToDo: skicka med typ av input och kör rätt metod efter nullcheck?

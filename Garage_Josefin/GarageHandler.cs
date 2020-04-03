@@ -9,6 +9,7 @@ namespace Garage_Josefin
     {
         Garage<Vehicle> garage;
         UI console = new UI();
+        
 
         public GarageHandler(int capacity)
         {
