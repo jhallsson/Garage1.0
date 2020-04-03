@@ -69,7 +69,7 @@ namespace GarageTest
             garageHand.Park(vehicle2);
 
 
-            //ToDo: skapa != parkera
+           
             string regNr = "abc123";
             bool expected = true;
             

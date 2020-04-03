@@ -34,10 +34,15 @@ namespace Garage_Josefin
                 {
                     case '1': 
                         
-                        string regNr = GetInput("Reg. Number: ");//ToDo: flytta? 
+                        string type = GetInput("Type of Vehicle: ");
+                        string regNr = GetInput("Reg. Number: ");       //ToDo: flytta? 
                         string color = GetInput("Color: ");
                         int.TryParse(GetInput("Number of wheels: "),out int wheels);
-                        var vehicle = handler.CreateVehicle(regNr, color, wheels);
+
+                        var vehicle = handler.CreateVehicle(type, regNr, color, wheels);
+                        
+                        
+                        
                         bool success = handler.Park(vehicle); //Todo: global variabel?
                         if (success)
                             Print($"Vehicle {vehicle.RegNumb} parked");
@@ -56,7 +61,7 @@ namespace Garage_Josefin
                         handler.ListVehicles();
                         break;
                     case '4':
-                        var type = GetInput("Wich Type of Vehicle?"); //ToDo: Finns i listan/finns inte i listan
+                        type = GetInput("Wich Type of Vehicle?"); //ToDo: Finns i listan/finns inte i listan
                         //string -> typ
                         handler.ListVehicleTypes(type);
                         //if vehicle is typ
@@ -79,21 +84,29 @@ namespace Garage_Josefin
             } while (running);
         }
 
-        private string GetInput(string message) //ToDo: fel att använda objekt? string, vehicle, int...
+        public string GetInput(string message) //ToDo: fel att använda objekt? string, vehicle, int...
         {
-            Console.WriteLine(message);
-            string input = Console.ReadLine();
-            if (string.IsNullOrEmpty(input))
+            //do while?
+            bool wrongInput = true;
+            string input;
+            do
             {
-                return "---"; //ToDo: error message
-            }
-            else
-            {
-                return input;   //ToDo: "0" ful lösning för tryparse? eller bättre än null?
-            }
+                Console.WriteLine(message);
+                input = Console.ReadLine();
+                if (string.IsNullOrEmpty(input))
+                {
+                    Print("Unvalid Input. Try Again!"); //ToDo: error message
+                }
+                else
+                {
+                    wrongInput = false;
+                }
+            } while (wrongInput);
+            return input;   //ToDo: "0" ful lösning för tryparse? eller bättre än null?
+
         }
 
-        public static void Print(string info) //måste vara static?
+        public void Print(string info) //måste vara static?
         {
             Console.WriteLine(info);
         }
