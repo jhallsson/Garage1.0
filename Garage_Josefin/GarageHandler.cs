@@ -17,9 +17,14 @@ namespace Garage_Josefin
             FullGarage();
         }
         
-        public Vehicle CreateVehicle(string type, string regNr, string color, int wheels) //vilken typ??
+        public Vehicle CreateVehicle(/*string type, string regNr, string color, int wheels*/) //vilken typ??
         {                                                //skicka typ(string), reg, col, whe, subegen?? fråga i case?
-            //Switch - för mycket upprepning?
+            //ToDo: Switch - för mycket upprepning?
+            string type = console.GetInput("Type of Vehicle: ");
+            string regNr = console.GetInput("Reg. Number: ");       
+            string color = console.GetInput("Color: ");
+            int.TryParse(console.GetInput("Number of wheels: "), out int wheels);
+
             switch (type)
             {
                 case "Airplane":
@@ -44,11 +49,14 @@ namespace Garage_Josefin
                     break;
                 default:
                     console.Print("Something Went Wrong. Try Again.");
+                    break;
             }
             //extra: color måste vara någon av förbestämd?
             //Vehicle vehicle = new Vehicle(regNumb, color, wheelCount);//ToDo: kunna skapa subklasser också
 
-            return newVehicle;                     //ToDo: inte kunna skapa utan ifyllda värden
+            return newVehicle;     //ToDo: blir det fel att sätta newvehicle = car/bus/boat? 
+                                    //eller sätta newVehicle i varje Case
+            //ToDo: inte kunna skapa utan ifyllda värden
         }
         public bool Park(Vehicle vehicle)   //ToDo: Gör om!!
         {

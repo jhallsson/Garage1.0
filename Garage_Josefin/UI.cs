@@ -32,17 +32,10 @@ namespace Garage_Josefin
 
                 switch (input)
                 {
-                    case '1': 
-                        
-                        string type = GetInput("Type of Vehicle: ");
-                        string regNr = GetInput("Reg. Number: ");       //ToDo: flytta? 
-                        string color = GetInput("Color: ");
-                        int.TryParse(GetInput("Number of wheels: "),out int wheels);
+                    case '1':
 
-                        var vehicle = handler.CreateVehicle(type, regNr, color, wheels);
-                        
-                        
-                        
+                        var vehicle = handler.CreateVehicle();
+
                         bool success = handler.Park(vehicle); //Todo: global variabel?
                         if (success)
                             Print($"Vehicle {vehicle.RegNumb} parked");
