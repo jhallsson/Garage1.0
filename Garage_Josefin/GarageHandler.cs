@@ -11,11 +11,17 @@ namespace Garage_Josefin
         UI console = new UI();
         
 
-        public GarageHandler(int capacity)
+        public GarageHandler()
         {
-            garage = new Garage<Vehicle>(capacity); //ToDo: take in value for capacity
-            garage.GarageCapacity = capacity;
+            CreateGarage();
+            
             FullGarage();
+        }
+        private void CreateGarage()
+        {
+            int.TryParse(console.GetInput("Capacity: "), out int capacity);
+            garage = new Garage<Vehicle>(capacity);
+            garage.GarageCapacity = capacity;
         }
         
         public Vehicle CreateVehicle(/*string type, string regNr, string color, int wheels*/) //vilken typ??

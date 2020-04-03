@@ -6,14 +6,14 @@ namespace Garage_Josefin
 {
     public class UI
     {
-        GarageHandler handler;
+        GarageHandler handler = new GarageHandler();
         public void Menu()
         {
             bool running = true;
 
-            Print("Welcome to the Garage App! Start by creating a garage.\nCapacity: ");
-            int.TryParse(Console.ReadLine(), out int capacity);
-            handler = new GarageHandler(capacity);
+            Print("Welcome to the Garage App! Start by creating a garage.\n");
+            
+            
 
             //ToDo: check input, check success
             Print("Garage succesfully built!");
@@ -149,7 +149,7 @@ namespace Garage_Josefin
             bool returnValue = false;
             List<string> typeList = new List<string>() { "airplane", "boat", "bus", "car", "motorcycle" };
 
-            returnValue = typeList.Contains(input);
+            returnValue = typeList.Contains(input.ToLower());
 
             return returnValue;
 
