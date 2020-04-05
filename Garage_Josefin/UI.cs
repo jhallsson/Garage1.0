@@ -6,9 +6,9 @@ namespace Garage_Josefin
 {
     public class UI
     {
-        GarageHandler handler = new GarageHandler();
         public void Menu()
         {
+            GarageHandler handler = new GarageHandler(); //anropar creategarage, frågar om kapacitet
             bool running = true;
 
             Print("Welcome to the Garage App! Start by creating a garage.\n");
@@ -49,7 +49,7 @@ namespace Garage_Josefin
                         break;
                     case '2':
                         string leavingVehicle = GetInput("Type in the Reg. Number for the leaving vehicle: ");
-                        bool left = handler.Leave(leavingVehicle); //ToDo bool?
+                        bool left = handler.Leave(leavingVehicle); 
                         if (left)
                             Print($"Vehicle {leavingVehicle} left");
                         else
@@ -60,7 +60,7 @@ namespace Garage_Josefin
                         break;
                     case '4':
                         string type = GetInput("Wich Type of Vehicle?"); //ToDo: Finns i listan/finns inte i listan
-                        bool validType = TryTypeInput(type);
+                        bool validType = TryTypeInput(type); //ToDo: flytta till ListVehicleTypes
                         if (validType)
                         {
                             //Print($"All {type}s in the Garage: ");
@@ -69,16 +69,16 @@ namespace Garage_Josefin
                         }
                         else
                             Print("Unvalid input. Try Again");
-
                         break;
                     case '5':
                         string searched = GetInput("Type in Reg. Number: ");
                         if (!handler.RegNumberExists(searched))
                             Print($"{searched.ToUpper()} is not in the Garage");
-
                         break;
                     case '6':
                         /*fråga(vilka /)vilket property(/ max fyra ? )typ, color x, wheels x
+
+
                         
                         Söka efter fordon utifrån en  egenskap eller flera.
                         Till exempel alla svarta fordonmed fyra hjul.
@@ -94,7 +94,7 @@ namespace Garage_Josefin
                         running = false;
                         break;
                     default:
-                        Console.WriteLine("Invalid input. Please try again.");
+                        Print("Invalid input. Please try again.");
                         break;
 
                 }
@@ -124,6 +124,8 @@ namespace Garage_Josefin
                         accepted = TryTypeInput(input);
                     else if (typeOfInput == "RegNr")
                         accepted = TryRegNumbInput(input);
+                    else if (typeOfInput == "Int")
+                        accepted = TryParseInput(input);
                     if (accepted)
                         wrongInput = false;
                     else
@@ -134,8 +136,23 @@ namespace Garage_Josefin
 
         }
 
+        private bool TryParseInput(string input)
+        {
+            bool returnValue = false;
+            if (!int.TryParse(input, out int result))
+            {
+                Print("Must be a number, try again!");
+            }
+            else
+            {
+                returnValue = true;
+            }
+            return returnValue;
+        }
+
         public bool TryRegNumbInput(string input)
         {
+            var handler = new GarageHandler();
             bool returnValue = false; //ToDo: kolla om det redan finns
             bool exist = handler.RegNumberExists(input);
             if (input.Length == 6 && !exist)
@@ -150,31 +167,23 @@ namespace Garage_Josefin
                     if (char.IsDigit(input[i]))
                         returnValue = true;
                 }
+                
             }
+            if(!returnValue)
+                Print("Invalid Reg. Number. Must be of type 'AAA111'");
             return returnValue;
         }
 
-        private bool TryTypeInput(string input)
-        {
-            bool returnValue = false;
-            List<string> typeList = new List<string>() { "airplane", "boat", "bus", "car", "motorcycle" };
-
-            returnValue = typeList.Contains(input.ToLower());
-
-            return returnValue;
-
-        }
-
-        public string GetInput(string message) //ToDo: fel att använda objekt? string, vehicle, int...
+            public string GetInput(string message) //ToDo: fel att använda objekt? string, vehicle, int...
         {
             //ToDo: skicka med typ av input och kör rätt metod efter nullcheck?
             //do while?
-            bool wrongInput = true;
             string input;
+            bool wrongInput = true;
             do
             {
-                Console.WriteLine(message);
-                input = Console.ReadLine();
+            Console.WriteLine(message);
+            input = Console.ReadLine();
                 if (string.IsNullOrEmpty(input))
                 {
                     Print("Unvalid Input. Try Again!"); //ToDo: error message
@@ -184,13 +193,27 @@ namespace Garage_Josefin
                     wrongInput = false;
                 }
             } while (wrongInput);
+            
             return input;   //ToDo: "0" ful lösning för tryparse? eller bättre än null?
 
         }
-        public void Print(string info) //måste vara static?
+        
+        
+        public bool TryTypeInput(string input)
+        {
+            bool returnValue = false;
+            List<string> typeList = new List<string>() { "airplane", "boat", "bus", "car", "motorcycle" };
+
+            returnValue = typeList.Contains(input.ToLower());
+            if (!returnValue)
+                Print("Must be a valid type. Try Again");
+            return returnValue;
+
+        }
+        public void Print(string info)
         {
             Console.WriteLine(info);
         }
-     
     }
 }
+

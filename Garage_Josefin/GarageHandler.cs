@@ -15,11 +15,13 @@ namespace Garage_Josefin
         {
             CreateGarage();
             
-            FullGarage();
+            //FullGarage();
         }
         private void CreateGarage()
         {
-            int.TryParse(console.GetInput("Capacity: "), out int capacity);
+            string input = console.GetInput("Capacity: ", "Int"); //kommer inte tillbaka förrän rätt
+            int.TryParse(input, out int capacity); //checkar ändå
+
             garage = new Garage<Vehicle>(capacity);
             garage.GarageCapacity = capacity;
         }
@@ -75,10 +77,16 @@ namespace Garage_Josefin
             
             
         }
-
+        
+        
         public bool RegNumberExists(string regNumber)
         {
             return garage.Vehicles.Any(v => v.RegNumb == regNumber);
+        }
+        public void TryInput(string input)
+        {
+            
+
         }
 
         internal bool GarageIsFull()
@@ -185,13 +193,11 @@ namespace Garage_Josefin
         }
         public void SearchProperty()
         {
-            /*typ: x / null color: x / null...
-                    if (typ != null)
-            vehicles.where*/
             string type = console.GetInput("Type: ").ToLower();
             string color = console.GetInput("Color: ");
             string wheelCount= console.GetInput("Wheels: ");
-            List<Vehicle> searchList = new List<Vehicle>;
+            List<Vehicle> searchList = new List<Vehicle>();
+
             if (!string.IsNullOrEmpty(type))
             {
                 switch (type)
@@ -201,6 +207,9 @@ namespace Garage_Josefin
                         break;
                     case "boat":
                         searchList = garage.Vehicles.Where(v => v is Boat).ToList(); //ToDo: hitta hur man kan skicka typ
+                        break;
+                    case "bus":
+                        searchList = garage.Vehicles.Where(v => v is Bus).ToList();
                         break;
                     default:
                         break;
