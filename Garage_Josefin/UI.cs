@@ -9,9 +9,9 @@ namespace Garage_Josefin
         public void Menu()
         {
             bool running = true;
+            GarageHandler handler = new GarageHandler(); //anropar creategarage, frågar om kapacitet
             
             Print("Welcome to the Garage App! Start by creating a garage.\n");
-            GarageHandler handler = new GarageHandler(); //anropar creategarage, frågar om kapacitet
             //ToDo: checka success?
             Print("Garage succesfully built!");
             
@@ -31,16 +31,23 @@ namespace Garage_Josefin
                 {
                     case '1':
                         if (handler.GarageIsFull())
-                           Print("The Garage is Full! One or More Vehicles Need to Leave");
+                           Print("The Garage is full! One or " +
+                               "more Vehicles need to leave");
                         else
                         {
-                            var vehicle = handler.CreateVehicle();
-                            bool parked = handler.Park(vehicle); //Todo: global variabel?
-
-                            if (parked)
-                                Print($"Vehicle {vehicle.RegNumb} parked");
+                            string regNr = GetInput("Reg. Number: ", "RegNr");
+                            if (!handler.RegNumberExists(regNr))
+                            {
+                                var vehicle = handler.CreateVehicle(regNr);
+                                bool parked = handler.Park(vehicle); //Todo: global variabel - funkar inte
+                                if (parked)
+                                    Print($"Vehicle {vehicle.RegNumb} parked");
+                                else
+                                    Print("Could not park");
+                            }
                             else
-                                Print("Something went wrong"); //ToDo: samla
+                                Print($"A Vehicle with reg. number {regNr} already " +
+                                    $"exists. Should i call the cops on you?"); 
                         }
                         break;
                     case '2':
@@ -147,9 +154,9 @@ namespace Garage_Josefin
         
         public bool TryRegNumbInput(string input)
         {
-            //var handler = new GarageHandler(); //ToDo: kan inte göra ny handler
+            //var handler = new GarageHandler(); //ToDo: kan inte göra ny handler, vill skapa nytt garage då
             bool returnValue = false; //ToDo: kolla om det redan finns
-            //bool exist = handler.RegNumberExists(input);
+            //bool exist = GarageHandler.RegNumberExists(input); 
             if (input.Length == 6 /*&& !exist*/)
             {
                 for (int i = 0; i < 3; i++)     //ToDo: använd linq

@@ -25,15 +25,15 @@ namespace Garage_Josefin
             garage.GarageCapacity = capacity;
         }
         
-        public Vehicle CreateVehicle(/*string type, string regNr, string color, int wheels*/) //vilken typ??
+        public Vehicle CreateVehicle(string regNr/*string type, string regNr, string color, int wheels*/) //vilken typ??
         {                                                //skicka typ(string), reg, col, whe, subegen?? fråga i case?
-            
+
             //ToDo: Switch för mycket upprepning?
+            /*string type = console.GetInput("Type of Vehicle: ", "Type").ToLower(); //ToDo: säg till om invalid input inte bara för null!
+            string regNr = console.GetInput("Reg. Number: ", "RegNr");*/
             string type = console.GetInput("Type of Vehicle: ", "Type").ToLower(); //ToDo: säg till om invalid input inte bara för null!
-            string regNr = console.GetInput("Reg. Number: ", "RegNr");
-            
-            //ToDo: regnr exists already
-            
+                                                                                  //ToDo: regnr exists already
+
             string color = console.GetInput("Color: ","null");  //behöver nullcheck
             int.TryParse(console.GetInput("Number of wheels: ", "null"), out int wheels); //else?
             //värden kommer inte tillbaka förrän de är okej
@@ -75,7 +75,7 @@ namespace Garage_Josefin
         }
         public bool RegNumberExists(string regNumber)
         {
-            return garage.Vehicles.Any(v => v.RegNumb == regNumber);
+            return garage.Vehicles.Any(v => v.RegNumb == regNumber);//ToDo: null
         }
         internal bool GarageIsFull()
         {
