@@ -76,7 +76,17 @@ namespace Garage_Josefin
                             Print($"{searched.ToUpper()} is not in the Garage");
                         break;
                     case '6':
-                        handler.SearchProperty();
+                        var list = handler.SearchProperty();
+                        
+                        if (list.Count > 0)
+                        {
+                            Print("Matching Vehicles: ");
+                            foreach (var vehicle in list)
+                            {
+                                Print($" - {handler.StringifyOutput(vehicle)}");
+                            }
+                        }
+                        else Print("No Match!");
                         /*fråga(vilka /)vilket property(/ max fyra ? )typ, color x, wheels x
 
                         
@@ -101,25 +111,7 @@ namespace Garage_Josefin
 
             } while (running);
         }
-        public string GetInput(string message)         
-        {
-            string input;
-            bool wrongInput = true;
-            do
-            {
-                Console.WriteLine(message);
-                input = Console.ReadLine();
-                if (string.IsNullOrEmpty(input))//ta bort denna null och använd den andra för viktiga?
-                {
-                    Print("Invalid Input. Try Again!"); //ToDo: error message
-                }
-                else
-                {
-                    wrongInput = false;
-                }
-            } while (wrongInput);
-            return input;   //ToDo: "0" ful lösning för tryparse? eller bättre än null?
-        }
+        
         public string GetInput(string message, string typeOfInput) //ToDo: fel att använda objekt? string, vehicle, int...
         {
             bool wrongInput = true;
@@ -157,7 +149,26 @@ namespace Garage_Josefin
             return input;   //ToDo: "0" ful lösning för tryparse? eller bättre än null?
 
         }
-        public string GetInput(string message) //ToDo: fel att använda objekt? string, vehicle, int...
+        public string GetInput(string message)
+        {
+            string input;
+            Console.WriteLine(message);
+            input = Console.ReadLine();
+            return input;   //ToDo: "0" ful lösning för tryparse? eller bättre än null?
+            /*bool wrongInput = true;
+            do
+            {
+                if (string.IsNullOrEmpty(input))//ta bort denna null och använd den andra för viktiga?
+                {
+                    Print("Invalid Input. Try Again!"); //ToDo: error message
+                }
+                else
+                {
+                wrongInput = false;
+                }
+            } while (wrongInput);*/
+        }
+        /*public string GetInput(string message) //ToDo: fel att använda objekt? string, vehicle, int...
         {
             
             string input;
@@ -178,7 +189,7 @@ namespace Garage_Josefin
             
             return input;   //ToDo: "0" ful lösning för tryparse? eller bättre än null?
 
-        }
+        }*/
 
         private bool TryParseInput(string input)
         {

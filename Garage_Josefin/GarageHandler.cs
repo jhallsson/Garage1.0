@@ -14,7 +14,7 @@ namespace Garage_Josefin
         {
             CreateGarage();
             
-            //FullGarage();
+            FullGarage();
         }
         private void CreateGarage()
         {
@@ -177,7 +177,7 @@ namespace Garage_Josefin
             
             
         }
-        public void SearchProperty()
+        public List<Vehicle> SearchProperty()
         {
             string type = console.GetInput("Type: ").ToLower();
             string color = console.GetInput("Color: ");
@@ -189,7 +189,7 @@ namespace Garage_Josefin
                 switch (type)
                 {
                     case "airplane":
-                        garage.Vehicles.Where(v => v is Airplane).ToList(); //ToDo: rätt att välja tolist?
+                        searchList = garage.Vehicles.Where(v => v is Airplane).ToList(); //ToDo: rätt att välja tolist?
                         break;
                     case "boat":
                         searchList = garage.Vehicles.Where(v => v is Boat).ToList(); //ToDo: hitta hur man kan skicka typ
@@ -197,18 +197,25 @@ namespace Garage_Josefin
                     case "bus":
                         searchList = garage.Vehicles.Where(v => v is Bus).ToList();
                         break;
+                    case "car":
+                        searchList = garage.Vehicles.Where(v => v is Car).ToList();
+                        break;
+                    case "motorcycle":
+                        searchList = garage.Vehicles.Where(v => v is Motorcycle).ToList();
+                        break;
                     default:
+                        console.Print($"There is no such type as {type}"); //ToDo: ska komma direkt
                         break;
                 }
-            }else if (!string.IsNullOrEmpty(color))
-            {
-                searchList = searchList.Where(v => v.Color == color).ToList();
-            }else if (int.TryParse(wheelCount, out int wheels))
-            {
-            //ToDo: hur gör jag med int?
-            searchList = searchList.Where(v => v.WheelCount == wheels).ToList();
             }
-            //return lista?
+            else
+                searchList = garage.Vehicles.Where(v=> v is Vehicle).ToList(); //Tar med null-platser
+            if (!string.IsNullOrEmpty(color))
+                searchList = searchList.Where(v => v.Color == color).ToList();
+            if (int.TryParse(wheelCount, out int wheels))//ToDo: hur gör jag med int?
+                searchList = searchList.Where(v => v.WheelCount == wheels).ToList();
+
+            return searchList; //sorterar bara efter typ
 
 
         }
