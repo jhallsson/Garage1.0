@@ -58,13 +58,13 @@ namespace Garage_Josefin
                         string type = GetInput("Wich Type of Vehicle?","Type"); //ToDo: Finns i listan/finns inte i listan
                         
                         var typeList = handler.ListVehicleTypes(type);
-                        //Print($"All {type}s in the Garage: ");
+                        Print($"Every {type} in the Garage: ");
                         if (typeList.Count > 0)
                             typeList.ForEach(v => Print($" - {handler.StringifyOutput(v)}"));
                         break;
                     case '5':
                         string searched = GetInput("Type in Reg. Number: ","RegNr");
-                        if (!handler.RegNumberExists(searched)) //KOLLA
+                        if (!handler.RegNumberExists(searched))
                             Print($"{searched.ToUpper()} is not in the Garage");
                         else
                             Print(handler.Search(searched));
@@ -75,8 +75,7 @@ namespace Garage_Josefin
                         if (list.Count > 0)
                         {
                             Print("Matching Vehicles: ");
-                            list.ForEach(v=> Print($" - {handler.StringifyOutput(v)}"));
-                           
+                            list.ForEach(v=> Print($" - {handler.StringifyOutput(v)}")); 
                         }
                         else Print("No Match!");
                         break; 
@@ -88,11 +87,9 @@ namespace Garage_Josefin
                         Print("Something went wrong. Please try again.");
                         break;
                 }
-
             } while (running);
         }
-        
-        public string GetInput(string message, string typeOfInput) //ToDo: fel att använda objekt? string, vehicle, int...
+        public string GetInput(string message, string typeOfInput)
         {
             bool wrongInput = true;
             string input;
@@ -101,10 +98,7 @@ namespace Garage_Josefin
                 Console.WriteLine(message);
                 input = Console.ReadLine().ToUpper();   //ToDo: vart ska jag lägga toupper
                 if (string.IsNullOrEmpty(input))
-                {
-                    //ToDo: error message
-                    Print("\nInput can not be blank. Try Again!");
-                }
+                    Print("\nInput can not be blank. Try Again!");//ToDo: error message
                 else
                 {
                     bool accepted = false;
@@ -129,50 +123,14 @@ namespace Garage_Josefin
                 }
             } while (wrongInput);
             return input;   //ToDo: "0" ful lösning för tryparse? eller bättre än null?
-
         }
         public string GetInput(string message)
         {
             string input;
             Console.WriteLine(message);
             input = Console.ReadLine();
-            return input;  
-            /*bool wrongInput = true;
-            do
-            {
-                if (string.IsNullOrEmpty(input))//ta bort denna null och använd den andra för viktiga?
-                {
-                    Print("Invalid Input. Try Again!"); //ToDo: error message
-                }
-                else
-                {
-                wrongInput = false;
-                }
-            } while (wrongInput);*/
+            return input; 
         }
-        /*public string GetInput(string message) //ToDo: fel att använda objekt? string, vehicle, int...
-        {
-            
-            string input;
-            bool wrongInput = true;
-            do
-            {
-            Console.WriteLine(message);
-            input = Console.ReadLine();
-                if (string.IsNullOrEmpty(input))//ta bort denna null och använd den andra för viktiga?
-                {
-                    Print("Invalid Input. Try Again!"); //ToDo: error message
-                }
-                else
-                {
-                    wrongInput = false;
-                }
-            } while (wrongInput);
-            
-            return input;   //ToDo: "0" ful lösning för tryparse? eller bättre än null?
-
-        }*/
-
         private bool TryParseInput(string input)
         {
             bool returnValue = false;
