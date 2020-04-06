@@ -21,25 +21,20 @@ namespace Garage_Josefin
             string input = console.GetInput("Capacity: ", "Int"); //kommer inte tillbaka förrän rätt
             int.TryParse(input, out int capacity); //checkar ändå
 
-            //capacity = Math.Max(1, capacity); //ToDo: egentligen felmeddelande - flyttat till garage-prop
             
             garage = new Garage<Vehicle>(capacity);
-            //if(garage.GarageCapacity>=capacity) //ToDo: ta bort? ändras till valid värde i property
-                console.Print($"Garage succesfully built with {garage.GarageCapacity} parking spaces!");
+            console.Print($"Garage succesfully built with {garage.GarageCapacity} parking spaces!");
         }
         
         public Vehicle CreateVehicle(string regNr) //vilken typ??
         {
-
-            //ToDo: Switch för mycket upprepning?
-
             string type = console.GetInput("Type of Vehicle: ", "Type");
-            string color = console.GetInput("Color: ","null");                      //Kollar bara för null  
-            int.TryParse(console.GetInput("Number of wheels: ", "Int"), out int wheels); //dubbelkollar istället för bara parse
+            string color = console.GetInput("Color: ","null");                           //Kollar bara för null  
+            int.TryParse(console.GetInput("Number of wheels: ", "Int"), out int wheels);
             switch (type)
             {
                 case "airplane":
-                    int seats= int.Parse(console.GetInput("Seats: ","Int")); //ToDo: dubbelkolla parse eller inte... onödigt? vad är snyggast?
+                    int seats= int.Parse(console.GetInput("Seats: ","Int"));            //ToDo: dubbelkolla parse eller inte... onödigt? vad är snyggast?
                     Vehicle airplane = new Airplane(seats, regNr, color, wheels);
                     return airplane;
                 case "boat":
@@ -69,8 +64,8 @@ namespace Garage_Josefin
         {
             int countBefore = CountVehicles();
             
-            int index = Array.FindIndex(garage.Vehicles, v=> v==null);
-            garage.Vehicles[index] = vehicle;                   //ToDo: snyggare?
+            int index = Array.FindIndex(garage.Vehicles, v=> v== null);
+            garage.Vehicles[index] = vehicle;                   
             
             int countAfter = CountVehicles();
             return countAfter > countBefore;
@@ -80,7 +75,7 @@ namespace Garage_Josefin
             int countBefore = CountVehicles();
             string leaving = regNr.ToUpper();
             
-            var index = Array.FindIndex(garage.Vehicles, v => v.RegNumb == leaving);
+            int index = Array.FindIndex(garage.Vehicles, v => v.RegNumb == leaving);
             garage.Vehicles[index] = null;
 
             int countAfter = CountVehicles();
@@ -89,8 +84,8 @@ namespace Garage_Josefin
         public void ListVehicles() 
         {
             var list = new List<string>();
-            Array.ForEach(garage.Vehicles.Where(v => v is Vehicle).ToArray()
-                ,t=>console.Print(StringifyOutput(t))); //Förvirrade mig rejält där, men ville ändå prova med linq!
+            Array.ForEach(garage.Vehicles.Where(v => v is Vehicle).ToArray(),
+                t=>console.Print(StringifyOutput(t))); //Förvirrade mig rejält där, men ville ändå prova med linq!
         }
         internal List<Vehicle> ListVehicleTypes(string type)
         {
@@ -99,11 +94,15 @@ namespace Garage_Josefin
             Array.ForEach(garage.Vehicles, v =>list = TypeListMaker(type));
             return list;
         }
-        public string Search(string regNr) //ToDo: gör om, förstå "?"
+        public string Search(string regNr)
         {
-            regNr = regNr.ToUpper();          
+            regNr = regNr.ToUpper();
             Vehicle vehicle = garage.Vehicles?.Where(v => v?.RegNumb == regNr).FirstOrDefault();
             int index = Array.IndexOf(garage.Vehicles, vehicle);
+
+            /*string match;
+            Array.Find(garage.Vehicles.Where(v => v.RegNumb == regNr).ToArray(),t=> StringifyOutput(t));
+*/
             return StringifyOutput(vehicle);
         }
         public List<Vehicle> SearchProperty()
@@ -129,7 +128,7 @@ namespace Garage_Josefin
                     list = garage.Vehicles.Where(v => v is Airplane).ToList(); //ToDo: rätt att välja tolist?
                     break;
                 case "boat":
-                    list = garage.Vehicles.Where(v => v is Boat).ToList(); //ToDo: hitta hur man kan skicka typ
+                    list = garage.Vehicles.Where(v => v is Boat).ToList(); 
                     break;
                 case "bus":
                     list = garage.Vehicles.Where(v => v is Bus).ToList();
@@ -141,7 +140,7 @@ namespace Garage_Josefin
                     list = garage.Vehicles.Where(v => v is Motorcycle).ToList();
                     break;
                 default:
-                    console.Print($"There is no such type as {type}"); //ToDo: ska komma direkt
+                    console.Print($"There is no such type as {type}");
                     break;
             }
             return list;

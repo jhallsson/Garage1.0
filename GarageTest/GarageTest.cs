@@ -37,21 +37,28 @@ namespace GarageTest
             int actual = garage.GarageCapacity;
             Assert.AreEqual(expected, actual);
         }
-        /*[TestMethod]
-        public void AddVehicle_VehicleCount1()
+        [TestMethod]
+        public void ListVehicles_WithFullCapacity_ReturnAllIVehicles()
         {
-            var garageHand = new GarageHandler();
-            var vehicle = new Vehicle("ABC123", "black", 4);
-            
-            int expected = 1;
-            int actual = garageHand.Park(vehicle, garageHand.CreateGarage(3));
+            /*var garageHand = new GarageHandler();
+            var vehicle = garageHand.CreateVehicle("ABC123");
+            var vehicle2 = garageHand.CreateVehicle("DEF456");
 
-            Assert.AreEqual(actual, expected);
-        }*/
-        /*[TestMethod]
+            garageHand.Park(vehicle);
+            garageHand.Park(vehicle2);
+
+            garageHand.ListVehicles();*/
+
+            //ToDo: finish
+
+        }
+    }
+}
+//---ToDo: anpassa, funkade bra vid skapandet av appen---
+/*[TestMethod]
         public void AddVehicle_VehicleAddedTrue()
         {
-            var garageHand = new GarageHandler(4);//ToDo: anpassa, funkade bra vid skapandet av appen
+            var garageHand = new GarageHandler(4);
             var vehicle = new Vehicle("ABC123", "black", 4);
 
             //bool expected = true;
@@ -105,20 +112,3 @@ namespace GarageTest
             string actual = garageHand.Search("abc123");
             Assert.AreEqual(expected, actual);
         }*/
-        [TestMethod]
-        public void ListVehicles_WithFullCapacity_ReturnAllIVehicles()
-        {
-            /*var garageHand = new GarageHandler();
-            var vehicle = garageHand.CreateVehicle("ABC123");
-            var vehicle2 = garageHand.CreateVehicle("DEF456");
-
-            garageHand.Park(vehicle);
-            garageHand.Park(vehicle2);
-
-            garageHand.ListVehicles();*/
-
-            //ToDo: finish
-
-        }
-    }
-}

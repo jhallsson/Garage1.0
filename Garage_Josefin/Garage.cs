@@ -18,7 +18,7 @@ namespace Garage_Josefin
         public T[] Vehicles 
         { 
             get => vehicles; 
-            set => vehicles = value; //park sätter värden? inte för hela utan index
+            set => vehicles = value; 
         }
         public Garage(int capacity){
             GarageCapacity = Math.Max(0, capacity);     //aldrig mindre än 0

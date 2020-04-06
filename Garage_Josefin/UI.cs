@@ -38,8 +38,8 @@ namespace Garage_Josefin
                             string regNr = GetInput("Reg. Number: ", "RegNr");
                             if (!handler.RegNumberExists(regNr))
                             {
-                                var vehicle = handler.CreateVehicle(regNr); //ToDo: anropas från park istället? -> kan inte göra färdiga värden utan input då (fullgarage)
-                                bool parked = handler.Park(vehicle); //Todo: global variabel - funkar inte
+                                var vehicle = handler.CreateVehicle(regNr); 
+                                bool parked = handler.Park(vehicle);
                                 if (parked)
                                     Print($"Vehicle {vehicle.RegNumb} parked");
                                 else
@@ -57,7 +57,7 @@ namespace Garage_Josefin
                         Print(message);
                         break;
                     case '3':
-                        handler.ListVehicles(); //ToDo: bäst med array eller list?
+                        handler.ListVehicles(); 
                         break;
                     case '4':
                         string type = GetInput("Wich Type of Vehicle?","Type"); 
@@ -104,7 +104,7 @@ namespace Garage_Josefin
                 Console.WriteLine(message);
                 input = Console.ReadLine().ToLower();  //så att alla värden i grunden är "snygga"
                 if (string.IsNullOrEmpty(input))
-                    Print("\nInput can not be blank. Try Again!");//ToDo: error message
+                    Print("\nInput can not be blank. Try Again!");
                 else
                 {
                     bool accepted = false;
@@ -122,7 +122,7 @@ namespace Garage_Josefin
                         case "Double":
                             accepted = TryParseToDoubleInput(input);
                             break;
-                        default: accepted = true; //för alla andra inputs?
+                        default: accepted = true; //för alla andra inputs
                             break;
                     }
                     if (accepted)
@@ -167,10 +167,10 @@ namespace Garage_Josefin
 
         private bool TryRegNumbInput(string input)
         {
-            bool returnValue = false; //ToDo: kolla om det redan finns - just nu i menu - ok?
+            bool returnValue = false; 
             if (input.Length == 6 /*&& !exists*/)
             {
-                for (int i = 0; i < 3; i++)     //ToDo: använd linq? hittar inget bättre
+                for (int i = 0; i < 3; i++)     //ToDo: använda linq? hittar inget bättre
                 {
                     if (char.IsLetter(input[i]))
                         returnValue = true;
