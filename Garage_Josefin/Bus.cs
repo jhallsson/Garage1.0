@@ -19,5 +19,10 @@ namespace Garage_Josefin
         {
             Length = length;
         }
+        public override string StringifyOutput(/*Vehicle vehicle*/)//ToDo: använd .tostring istället?
+        {
+            string vehicleInfo = $"{base.StringifyOutput(/*vehicle*/)}, {Length} m long.";
+            return vehicleInfo;
+        }
     }
 }

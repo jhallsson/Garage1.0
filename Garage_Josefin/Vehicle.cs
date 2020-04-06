@@ -35,7 +35,11 @@ namespace Garage_Josefin
 			Color = color;
 			WheelCount = wheelCount;
 		}
+		public virtual string StringifyOutput() //ToDo: använd .tostring istället?
+		{
+			string vehicleInfo = $"{RegNumb}, {Color}, {WheelCount} wheels";
+			return vehicleInfo;
+		}
 
-
-	} 
+	}
 }

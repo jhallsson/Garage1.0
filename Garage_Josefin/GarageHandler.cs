@@ -75,7 +75,8 @@ namespace Garage_Josefin
         }
         public bool RegNumberExists(string regNumber)
         {
-            return garage.Vehicles.Any(v => v.RegNumb == regNumber);//ToDo: null
+            return garage.Vehicles.Where(v => v is Vehicle).Any(v => v.RegNumb == regNumber);
+                //ToDo: ger null inte bool?
         }
         internal bool GarageIsFull()
         {
@@ -182,8 +183,8 @@ namespace Garage_Josefin
 
         public string StringifyOutput(Vehicle vehicle) //ToDo: använd .tostring istället?
         {
-            string vehicleInfo = $"{vehicle.RegNumb}, {vehicle.Color}, {vehicle.WheelCount} wheels.";
-            return vehicleInfo;
+            return vehicle.StringifyOutput(/*vehicle*/); //ToDo: vehicle-inception?
+
         }
         public int CountVehicles()
         {

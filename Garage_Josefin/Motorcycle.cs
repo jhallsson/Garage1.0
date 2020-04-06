@@ -4,8 +4,8 @@ using System.Text;
 
 namespace Garage_Josefin
 {
-    class Motorcycle : Vehicle
-    {
+	class Motorcycle : Vehicle
+	{
 		private double topSpeed;
 
 		public double TopSpeed
@@ -18,6 +18,12 @@ namespace Garage_Josefin
 			: base(regNumb, color, wheelCount)
 		{
 			TopSpeed = topSpeed;
+		}
+
+		public override string StringifyOutput(/*Vehicle vehicle*/)//ToDo: använd .tostring istället?
+		{
+			string vehicleInfo = $"{base.StringifyOutput(/*vehicle*/)}, top speed: {TopSpeed} km/h.";
+			return vehicleInfo;
 		}
 	}
 }

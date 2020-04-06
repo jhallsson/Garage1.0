@@ -19,5 +19,10 @@ namespace Garage_Josefin
         {
             Draft = draft;
         }
+        public override string StringifyOutput(/*Vehicle vehicle*/)//ToDo: använd .tostring istället?
+        {
+            string vehicleInfo = $"{base.StringifyOutput(/*vehicle*/)}, draft: {Draft} m.";
+            return vehicleInfo;
+        }
     }
 }
