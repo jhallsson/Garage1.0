@@ -19,7 +19,7 @@ namespace Garage_Josefin
         {
             Brand=brand;
         }
-        public override string StringifyOutput()//ToDo: använd .tostring istället?
+        public override string StringifyOutput()
         {
             string vehicleInfo = $"{base.StringifyOutput()}, brand: {Brand}.";
             return vehicleInfo;

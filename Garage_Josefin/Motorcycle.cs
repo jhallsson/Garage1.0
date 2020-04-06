@@ -20,7 +20,7 @@ namespace Garage_Josefin
 			TopSpeed = topSpeed;
 		}
 
-		public override string StringifyOutput()//ToDo: använd .tostring istället?
+		public override string StringifyOutput()
 		{
 			string vehicleInfo = $"{base.StringifyOutput()}, top speed: {TopSpeed} km/h.";
 			return vehicleInfo;

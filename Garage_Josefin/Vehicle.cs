@@ -25,7 +25,7 @@ namespace Garage_Josefin
 		public int WheelCount
 		{
 			get { return wheelCount; }
-			set { wheelCount = value; }
+			set { wheelCount = Math.Max(0,value); }
 		}
 
 
@@ -35,9 +35,9 @@ namespace Garage_Josefin
 			Color = color;
 			WheelCount = wheelCount;
 		}
-		public virtual string StringifyOutput() //ToDo: använd .tostring istället?
+		public virtual string StringifyOutput() 
 		{
-			string vehicleInfo = $"{RegNumb}, {Color}, {WheelCount} wheels";
+			string vehicleInfo = $" - {RegNumb}, {Color}, {WheelCount} wheels";
 			return vehicleInfo;
 		}
 

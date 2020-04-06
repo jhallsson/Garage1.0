@@ -13,7 +13,7 @@ namespace Garage_Josefin
         public int GarageCapacity
         {
             get { return garageCapacity; }
-            set { garageCapacity = value; }
+            set { garageCapacity = Math.Max(1, value); }
         }
         public T[] Vehicles 
         { 

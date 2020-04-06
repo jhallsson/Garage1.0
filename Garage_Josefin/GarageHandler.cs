@@ -14,42 +14,40 @@ namespace Garage_Josefin
         {
             CreateGarage();
             
-            FullGarage();
+            //FullGarage();
         }
         private void CreateGarage()
         {
             string input = console.GetInput("Capacity: ", "Int"); //kommer inte tillbaka förrän rätt
             int.TryParse(input, out int capacity); //checkar ändå
 
+            //capacity = Math.Max(1, capacity); //ToDo: egentligen felmeddelande - flyttat till garage-prop
+            
             garage = new Garage<Vehicle>(capacity);
-            garage.GarageCapacity = capacity;
+            //if(garage.GarageCapacity>=capacity) //ToDo: ta bort? ändras till valid värde i property
+                console.Print($"Garage succesfully built with {garage.GarageCapacity} parking spaces!");
         }
         
-        public Vehicle CreateVehicle(string regNr/*string type, string regNr, string color, int wheels*/) //vilken typ??
-        {                                                //skicka typ(string), reg, col, whe, subegen?? fråga i case?
+        public Vehicle CreateVehicle(string regNr) //vilken typ??
+        {
 
             //ToDo: Switch för mycket upprepning?
-            /*string type = console.GetInput("Type of Vehicle: ", "Type").ToLower(); //ToDo: säg till om invalid input inte bara för null!
-            string regNr = console.GetInput("Reg. Number: ", "RegNr");*/
-            string type = console.GetInput("Type of Vehicle: ", "Type").ToLower(); //ToDo: säg till om invalid input inte bara för null!
-                                                                                  //ToDo: regnr exists already
 
-            string color = console.GetInput("Color: ","null");  //behöver nullcheck
-            int.TryParse(console.GetInput("Number of wheels: ", "null"), out int wheels); //else?
-            //värden kommer inte tillbaka förrän de är okej
-
+            string type = console.GetInput("Type of Vehicle: ", "Type");
+            string color = console.GetInput("Color: ","null");                      //Kollar bara för null  
+            int.TryParse(console.GetInput("Number of wheels: ", "Int"), out int wheels); //dubbelkollar istället för bara parse
             switch (type)
             {
                 case "airplane":
-                    int.TryParse(console.GetInput("Seats: ","null"), out int seats);
+                    int seats= int.Parse(console.GetInput("Seats: ","Int")); //ToDo: dubbelkolla parse eller inte... onödigt? vad är snyggast?
                     Vehicle airplane = new Airplane(seats, regNr, color, wheels);
                     return airplane;
                 case "boat":
-                    double.TryParse(console.GetInput("Draft: ", "null"), out double draft);
+                    double.TryParse(console.GetInput("Draft: ", "Double"), out double draft);
                     Vehicle boat = new Boat(draft, regNr, color, wheels);
                     return boat;
                 case "bus":
-                    double.TryParse(console.GetInput("Length: ", "null"), out double length);
+                    double.TryParse(console.GetInput("Length: ", "Double"), out double length);
                     Vehicle bus = new Bus(length, regNr, color, wheels);
                     return bus;
                 case "car":
@@ -57,7 +55,7 @@ namespace Garage_Josefin
                     Vehicle car = new Car(brand, regNr, color, wheels);
                     return car;
                 case "motorcycle":
-                    double.TryParse(console.GetInput("Top Speed: ", "null"), out double topSpeed);
+                    double.TryParse(console.GetInput("Top Speed: ", "Double"), out double topSpeed);
                     Vehicle motorcycle = new Motorcycle(topSpeed, regNr, color, wheels);
                     return motorcycle;
                 default:
@@ -67,21 +65,8 @@ namespace Garage_Josefin
                     return v;
                     //ToDo: bättre lösning!
             }
-                //Vehicle vehicle = new Vehicle(regNumb, color, wheelCount);//ToDo: kunna skapa subklasser också
-
-                //return newVehicle;     //ToDo: blir det fel att sätta newvehicle = car/bus/boat? 
-                //eller sätta newVehicle i varje Case
-                //ToDo: inte kunna skapa utan ifyllda värden
         }
-        public bool RegNumberExists(string regNumber)
-        {
-            return garage.Vehicles.Where(v => v is Vehicle).Any(v => v.RegNumb == regNumber);
-                //ToDo: ger null inte bool?
-        }
-        internal bool GarageIsFull()
-        {
-            return CountVehicles() >= garage.GarageCapacity;
-        }
+       
         public bool Park(Vehicle vehicle)   //ToDo: Gör om!!
         {
             int countBefore = CountVehicles();
@@ -93,7 +78,6 @@ namespace Garage_Josefin
             int countAfter = CountVehicles();
             return countAfter > countBefore;
         }
-
         public bool Leave(string regNr)
         {
             int countBefore = CountVehicles();
@@ -102,13 +86,12 @@ namespace Garage_Josefin
             Vehicle vehicleLeaving = garage.Vehicles?.Where(v => v.RegNumb == search).FirstOrDefault();
             int index = Array.IndexOf(garage.Vehicles, vehicleLeaving);
             garage.Vehicles[index] = null;
+            
             int countAfter = CountVehicles();
-            return countBefore > countAfter; //ToDo: bool eller vehicle?
+            return countBefore > countAfter;
         }
-
         public void ListVehicles() 
         {
-            //ToDo:funkar inte för null
             Array.ForEach(garage.Vehicles, v =>
             {
                 if (v is Vehicle)
@@ -182,18 +165,26 @@ namespace Garage_Josefin
             return list;
         }
 
-        public string StringifyOutput(Vehicle vehicle) //ToDo: använd .tostring istället?
+        public string StringifyOutput(Vehicle vehicle) 
         {
             return vehicle.StringifyOutput();
         }
-        public int CountVehicles()
+        public bool RegNumberExists(string regNumber)
+        {
+            return garage.Vehicles.Where(v => v is Vehicle).Any(v => v.RegNumb == regNumber);
+        }
+        internal bool GarageIsFull()
+        {
+            return CountVehicles() >= garage.GarageCapacity;
+        }
+        private int CountVehicles()
         {
             int count = garage.Vehicles.Count(v => v is Vehicle);
             return count;
         }
-        public void FullGarage()
+        public void FullGarage() //använt för test!
         {
-            Vehicle car = new Car("Volvo", "ABC123", "green", 4);     //ToDo: rätt deklarerat med Vehicle?
+            Vehicle car = new Car("Volvo", "ABC123", "green", 4);     
             Vehicle car2 = new Car("Ford", "DEF456", "blue", 4);
             Vehicle boat = new Boat(3.52, "GHI789", "red", 0);
             Vehicle motorcycle = new Motorcycle(320.7, "JKL012", "red", 2);

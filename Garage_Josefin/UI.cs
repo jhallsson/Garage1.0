@@ -9,11 +9,12 @@ namespace Garage_Josefin
         public void Menu()
         {
             bool running = true;
-            GarageHandler handler = new GarageHandler(); //anropar creategarage, frågar om kapacitet
             
             Print("Welcome to the Garage App! Start by creating a garage.\n");
-            //ToDo: checka success?
-            Print("Garage succesfully built!");
+            
+            GarageHandler handler = new GarageHandler(); //anropar creategarage, frågar om kapacitet
+            
+            //Print("Garage succesfully built!");
             
             do
             {
@@ -38,7 +39,7 @@ namespace Garage_Josefin
                             string regNr = GetInput("Reg. Number: ", "RegNr");
                             if (!handler.RegNumberExists(regNr))
                             {
-                                var vehicle = handler.CreateVehicle(regNr);
+                                var vehicle = handler.CreateVehicle(regNr); //ToDo: anropas från park istället?
                                 bool parked = handler.Park(vehicle); //Todo: global variabel - funkar inte
                                 if (parked)
                                     Print($"Vehicle {vehicle.RegNumb} parked");
@@ -67,7 +68,7 @@ namespace Garage_Josefin
                         var typeList = handler.ListVehicleTypes(type);
                         Print($"Every {type} in the Garage: ");
                         if (typeList.Count > 0)
-                            typeList.ForEach(v => Print($" - {handler.StringifyOutput(v)}"));
+                            typeList.ForEach(v => Print($"{handler.StringifyOutput(v)}"));
                         break;
                     case '5':
                         string searched = GetInput("Type in Reg. Number: ","RegNr");
@@ -82,7 +83,7 @@ namespace Garage_Josefin
                         if (list.Count > 0)
                         {
                             Print("Matching Vehicles: ");
-                            list.ForEach(v=> Print($" - {handler.StringifyOutput(v)}")); 
+                            list.ForEach(v=> Print($"{handler.StringifyOutput(v)}")); 
                         }
                         else Print("No Match!");
                         break; 
@@ -103,7 +104,7 @@ namespace Garage_Josefin
             do                  //ToDo: provkör
             {
                 Console.WriteLine(message);
-                input = Console.ReadLine().ToUpper();   //ToDo: vart ska jag lägga toupper
+                input = Console.ReadLine().ToLower();  //så att alla värden i grunden är "snygga"
                 if (string.IsNullOrEmpty(input))
                     Print("\nInput can not be blank. Try Again!");//ToDo: error message
                 else
@@ -115,21 +116,24 @@ namespace Garage_Josefin
                             accepted = TryTypeInput(input);
                             break;
                         case "RegNr":
-                            accepted = TryRegNumbInput(input);
+                            accepted = TryRegNumbInput(input.ToUpper()); //
                             break;
                         case "Int":
                             accepted = TryParseInput(input);
+                            break;
+                        case "Double":
+                            accepted = TryParseToDoubleInput(input);
                             break;
                         default: accepted = true; //för alla andra inputs?
                             break;
                     }
                     if (accepted)
                         wrongInput = false;
-                    else
-                        Print("Invalid input. Try Again!");//ToDo: byt
+                   /* else
+                        Print("Invalid input. Try Again!");*///ToDo: blir dubbel, skippa helt?
                 }
             } while (wrongInput);
-            return input;   //ToDo: "0" ful lösning för tryparse? eller bättre än null?
+            return input;   
         }
         public string GetInput(string message)
         {
@@ -143,6 +147,19 @@ namespace Garage_Josefin
             bool returnValue = false;
             if (!int.TryParse(input, out int result))
             {
+                Print("Must be a integer number, try again!");
+            }
+            else
+            {
+                returnValue = true;
+            }
+            return returnValue;
+        }
+        private bool TryParseToDoubleInput(string input)
+        {
+            bool returnValue = false;
+            if (!double.TryParse(input, out double result))
+            {
                 Print("Must be a number, try again!");
             }
             else
@@ -151,15 +168,13 @@ namespace Garage_Josefin
             }
             return returnValue;
         }
-        
+
         public bool TryRegNumbInput(string input)
         {
-            //var handler = new GarageHandler(); //ToDo: kan inte göra ny handler, vill skapa nytt garage då
-            bool returnValue = false; //ToDo: kolla om det redan finns
-            //bool exist = GarageHandler.RegNumberExists(input); 
-            if (input.Length == 6 /*&& !exist*/)
+            bool returnValue = false; //ToDo: kolla om det redan finns - just nu i menu - ok?
+            if (input.Length == 6 /*&& !exists*/)
             {
-                for (int i = 0; i < 3; i++)     //ToDo: använd linq
+                for (int i = 0; i < 3; i++)     //ToDo: använd linq?
                 {
                     if (char.IsLetter(input[i]))
                         returnValue = true;
