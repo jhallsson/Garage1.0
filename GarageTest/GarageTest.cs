@@ -37,21 +37,6 @@ namespace GarageTest
             int actual = garage.GarageCapacity;
             Assert.AreEqual(expected, actual);
         }
-        [TestMethod]
-        public void ListVehicles_WithFullCapacity_ReturnAllIVehicles()
-        {
-            /*var garageHand = new GarageHandler();
-            var vehicle = garageHand.CreateVehicle("ABC123");
-            var vehicle2 = garageHand.CreateVehicle("DEF456");
-
-            garageHand.Park(vehicle);
-            garageHand.Park(vehicle2);
-
-            garageHand.ListVehicles();*/
-
-            //ToDo: finish
-
-        }
     }
 }
 //---ToDo: anpassa, funkade bra vid skapandet av appen---
