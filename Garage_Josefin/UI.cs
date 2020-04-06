@@ -8,17 +8,16 @@ namespace Garage_Josefin
     {
         public void Menu()
         {
-            GarageHandler handler = new GarageHandler(); //anropar creategarage, frågar om kapacitet
             bool running = true;
-
-            Print("Welcome to the Garage App! Start by creating a garage.\n");
             
+            Print("Welcome to the Garage App! Start by creating a garage.\n");
+            GarageHandler handler = new GarageHandler(); //anropar creategarage, frågar om kapacitet
+
             //ToDo: check input, check success
             Print("Garage succesfully built!");
             do
             {
-
-                Print("\nNavigate through the menu by selecting a number." +
+              Print("\nNavigate through the menu by selecting a number." +
                     "\n 1. Park" +
                     "\n 2. Let Vehicle leave" + //dismiss??
                     "\n 3. List" +
@@ -26,8 +25,9 @@ namespace Garage_Josefin
                     "\n 5. Search" +
                     "\n 6. Search with properties" + //ToDo: samma eller inte?
                     "\n 0. Close App");
-
-                char input = Console.ReadLine()[0];
+                
+                
+                char input = GetInput("")[0];
 
                 switch (input)
                 {
@@ -49,8 +49,8 @@ namespace Garage_Josefin
                         break;
                     case '2':
                         string leavingVehicle = GetInput("Type in the Reg. Number for the leaving vehicle: ");
-                        bool left = handler.Leave(leavingVehicle); 
-                        if (left)
+                        bool vehicleleft = handler.Leave(leavingVehicle); 
+                        if (vehicleleft)
                             Print($"Vehicle {leavingVehicle} left");
                         else
                             Print("Vehicle could not leave"); //ToDo: felmeddelanden
@@ -68,7 +68,7 @@ namespace Garage_Josefin
 
                         }
                         else
-                            Print("Unvalid input. Try Again");
+                            Print("Invalid input. Try Again");
                         break;
                     case '5':
                         string searched = GetInput("Type in Reg. Number: ");
@@ -76,9 +76,10 @@ namespace Garage_Josefin
                             Print($"{searched.ToUpper()} is not in the Garage");
                         break;
                     case '6':
+                        handler.SearchProperty();
                         /*fråga(vilka /)vilket property(/ max fyra ? )typ, color x, wheels x
 
-
+                        
                         
                         Söka efter fordon utifrån en  egenskap eller flera.
                         Till exempel alla svarta fordonmed fyra hjul.
@@ -94,44 +95,87 @@ namespace Garage_Josefin
                         running = false;
                         break;
                     default:
-                        Print("Invalid input. Please try again.");
+                        Print("Something went wrong. Please try again.");
                         break;
-
                 }
 
             } while (running);
         }
-
+        public string GetInput(string message)         
+        {
+            string input;
+            bool wrongInput = true;
+            do
+            {
+                Console.WriteLine(message);
+                input = Console.ReadLine();
+                if (string.IsNullOrEmpty(input))//ta bort denna null och använd den andra för viktiga?
+                {
+                    Print("Invalid Input. Try Again!"); //ToDo: error message
+                }
+                else
+                {
+                    wrongInput = false;
+                }
+            } while (wrongInput);
+            return input;   //ToDo: "0" ful lösning för tryparse? eller bättre än null?
+        }
         public string GetInput(string message, string typeOfInput) //ToDo: fel att använda objekt? string, vehicle, int...
         {
-            //ToDo: skicka med typ av input och kör rätt metod efter nullcheck?
-            //do while?
             bool wrongInput = true;
             string input;
             do                  //ToDo: provkör
             {
                 Console.WriteLine(message);
-                input = Console.ReadLine().ToUpper();//ToDo: vart ska jag lägga toupper
+                input = Console.ReadLine().ToUpper();   //ToDo: vart ska jag lägga toupper
                 if (string.IsNullOrEmpty(input))
                 {
                     //ToDo: error message
-                    Print("\nUnvalid Input. Try Again!");
+                    Print("\nInput can not be blank. Try Again!");
                 }
                 else
                 {
                     bool accepted = false;
-                    if (typeOfInput == "Type")
-                        accepted = TryTypeInput(input);
-                    else if (typeOfInput == "RegNr")
-                        accepted = TryRegNumbInput(input);
-                    else if (typeOfInput == "Int")
-                        accepted = TryParseInput(input);
+                    switch (typeOfInput)
+                    {
+                        case "Type":
+                            accepted = TryTypeInput(input);
+                            break;
+                        case "RegNr":
+                            accepted = TryRegNumbInput(input);
+                            break;
+                        case "Int":
+                            accepted = TryParseInput(input);
+                            break;
+                    }
                     if (accepted)
                         wrongInput = false;
                     else
                         Print("Invalid input. Try Again!");//ToDo: byt
                 }
             } while (wrongInput);
+            return input;   //ToDo: "0" ful lösning för tryparse? eller bättre än null?
+
+        }
+        public string GetInput(string message) //ToDo: fel att använda objekt? string, vehicle, int...
+        {
+            
+            string input;
+            bool wrongInput = true;
+            do
+            {
+            Console.WriteLine(message);
+            input = Console.ReadLine();
+                if (string.IsNullOrEmpty(input))//ta bort denna null och använd den andra för viktiga?
+                {
+                    Print("Invalid Input. Try Again!"); //ToDo: error message
+                }
+                else
+                {
+                    wrongInput = false;
+                }
+            } while (wrongInput);
+            
             return input;   //ToDo: "0" ful lösning för tryparse? eller bättre än null?
 
         }
@@ -149,6 +193,7 @@ namespace Garage_Josefin
             }
             return returnValue;
         }
+        
 
         public bool TryRegNumbInput(string input)
         {
@@ -174,31 +219,6 @@ namespace Garage_Josefin
             return returnValue;
         }
 
-            public string GetInput(string message) //ToDo: fel att använda objekt? string, vehicle, int...
-        {
-            //ToDo: skicka med typ av input och kör rätt metod efter nullcheck?
-            //do while?
-            string input;
-            bool wrongInput = true;
-            do
-            {
-            Console.WriteLine(message);
-            input = Console.ReadLine();
-                if (string.IsNullOrEmpty(input))
-                {
-                    Print("Unvalid Input. Try Again!"); //ToDo: error message
-                }
-                else
-                {
-                    wrongInput = false;
-                }
-            } while (wrongInput);
-            
-            return input;   //ToDo: "0" ful lösning för tryparse? eller bättre än null?
-
-        }
-        
-        
         public bool TryTypeInput(string input)
         {
             bool returnValue = false;
