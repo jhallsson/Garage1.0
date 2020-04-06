@@ -122,7 +122,7 @@ namespace Garage_Josefin
         {
             var list = new List<Vehicle>();
             type = type.ToLower();
-            Array.ForEach(garage.Vehicles, v =>list = TypeListMaker(list, type));
+            Array.ForEach(garage.Vehicles, v =>list = TypeListMaker(type));
             return list;
         }
         public string Search(string regNr) //ToDo: gör om, förstå "?"
@@ -141,7 +141,7 @@ namespace Garage_Josefin
 
             if (!string.IsNullOrEmpty(type))
             {
-                searchList = TypeListMaker(searchList, type);
+                searchList = TypeListMaker(type);
             }
             else
                 searchList = garage.Vehicles.Where(v=> v is Vehicle).ToList(); //Tar med null-platser
@@ -155,8 +155,9 @@ namespace Garage_Josefin
             return searchList; 
         }
 
-        private List<Vehicle> TypeListMaker(List<Vehicle> list, string type)
+        private List<Vehicle> TypeListMaker(string type)
         {
+            var list = new List<Vehicle>();
             switch (type)
             {
                 case "airplane":
@@ -184,7 +185,6 @@ namespace Garage_Josefin
         public string StringifyOutput(Vehicle vehicle) //ToDo: använd .tostring istället?
         {
             return vehicle.StringifyOutput();
-
         }
         public int CountVehicles()
         {
