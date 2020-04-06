@@ -123,35 +123,10 @@ namespace Garage_Josefin
             var list = new List<Vehicle>();
             type = type.ToLower();
             foreach (var vehicle in garage.Vehicles)
-            {
-                //switch? så länge
-                switch (type)
-                {
-                    case "vehicle":
-                        ListVehicles();
-                        break;
-                    case "airplane":
-                        list = garage.Vehicles.Where(v => v is Airplane).ToList(); //ToDo: rätt att välja tolist?
-                        break;
-                    case "boat":
-                        list = garage.Vehicles.Where(v => v is Boat).ToList(); //ToDo: hitta hur man kan skicka typ
-                        break;
-                    case "bus":
-                        list = garage.Vehicles.Where(v => v is Bus).ToList();
-                        break;
-                    case "car":
-                        list = garage.Vehicles.Where(v => v is Car).ToList();
-                        break;
-                    case "motorcycle":
-                        list = garage.Vehicles.Where(v => v is Motorcycle).ToList();
-                        break;
-                    default: 
-                        //ToDo: fixa default
-                        break;
-                }
-
+            {                
+                list = TypeListMaker(list, type);
             }
-                return list;
+            return list;
         }
 
         public string Search(string regNr) //ToDo: understand ?-nullcheck / gör om
@@ -170,27 +145,7 @@ namespace Garage_Josefin
 
             if (!string.IsNullOrEmpty(type))
             {
-                switch (type)
-                {
-                    case "airplane":
-                        searchList = garage.Vehicles.Where(v => v is Airplane).ToList(); //ToDo: rätt att välja tolist?
-                        break;
-                    case "boat":
-                        searchList = garage.Vehicles.Where(v => v is Boat).ToList(); //ToDo: hitta hur man kan skicka typ
-                        break;
-                    case "bus":
-                        searchList = garage.Vehicles.Where(v => v is Bus).ToList();
-                        break;
-                    case "car":
-                        searchList = garage.Vehicles.Where(v => v is Car).ToList();
-                        break;
-                    case "motorcycle":
-                        searchList = garage.Vehicles.Where(v => v is Motorcycle).ToList();
-                        break;
-                    default:
-                        console.Print($"There is no such type as {type}"); //ToDo: ska komma direkt
-                        break;
-                }
+                searchList = TypeListMaker(searchList, type);
             }
             else
                 searchList = garage.Vehicles.Where(v=> v is Vehicle).ToList(); //Tar med null-platser
@@ -203,6 +158,34 @@ namespace Garage_Josefin
 
             return searchList; 
         }
+
+        private List<Vehicle> TypeListMaker(List<Vehicle> searchList, string type)
+        {
+            switch (type)
+            {
+                case "airplane":
+                    searchList = garage.Vehicles.Where(v => v is Airplane).ToList(); //ToDo: rätt att välja tolist?
+                    break;
+                case "boat":
+                    searchList = garage.Vehicles.Where(v => v is Boat).ToList(); //ToDo: hitta hur man kan skicka typ
+                    break;
+                case "bus":
+                    searchList = garage.Vehicles.Where(v => v is Bus).ToList();
+                    break;
+                case "car":
+                    searchList = garage.Vehicles.Where(v => v is Car).ToList();
+                    break;
+                case "motorcycle":
+                    searchList = garage.Vehicles.Where(v => v is Motorcycle).ToList();
+                    break;
+                default:
+                    console.Print($"There is no such type as {type}"); //ToDo: ska komma direkt
+                    break;
+            }
+
+            return searchList;
+        }
+
         public string StringifyOutput(Vehicle vehicle) //ToDo: använd .tostring istället?
         {
             string vehicleInfo = $"{vehicle.RegNumb}, {vehicle.Color}, {vehicle.WheelCount} wheels.";
