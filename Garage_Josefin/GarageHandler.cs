@@ -66,13 +66,12 @@ namespace Garage_Josefin
             }
         }
        
-        public bool Park(Vehicle vehicle)   //ToDo: Gör om!!
+        public bool Park(Vehicle vehicle)   
         {
             int countBefore = CountVehicles();
             
-            Vehicle emptyValue = garage.Vehicles.Where(v => v == null).FirstOrDefault();
-            int emptyIndex = Array.IndexOf(garage.Vehicles, emptyValue);
-            garage.Vehicles[emptyIndex] = vehicle;
+            int index = Array.FindIndex(garage.Vehicles, null);
+            garage.Vehicles[index] = vehicle;                   //ToDo: snyggare?
             
             int countAfter = CountVehicles();
             return countAfter > countBefore;
@@ -80,12 +79,11 @@ namespace Garage_Josefin
         public bool Leave(string regNr)
         {
             int countBefore = CountVehicles();
-            string search = regNr.ToUpper();
-                                                            //input => method body
-            Vehicle vehicleLeaving = garage.Vehicles?.Where(v => v.RegNumb == search).FirstOrDefault();
-            int index = Array.IndexOf(garage.Vehicles, vehicleLeaving);
-            garage.Vehicles[index] = null;
+            string leaving = regNr.ToUpper();
             
+            var index = Array.FindIndex(garage.Vehicles, v => v.RegNumb == leaving);
+            garage.Vehicles[index] = null;
+
             int countAfter = CountVehicles();
             return countBefore > countAfter;
         }
@@ -93,11 +91,12 @@ namespace Garage_Josefin
         {
             Array.ForEach(garage.Vehicles, v =>
             {
-                if (v is Vehicle)
+                /*if (v is Vehicle)
                 {
                     string info = StringifyOutput(v);
                     console.Print(info);
-                }
+                }*/
+                string info = v is Vehicle ? StringifyOutput(v) : "Could not list";
             });
         }
         internal List<Vehicle> ListVehicleTypes(string type)

@@ -63,13 +63,16 @@ namespace Garage_Josefin
                         handler.ListVehicles();
                         break;
                     case '4':
-                        string type = GetInput("Wich Type of Vehicle?","Type"); //ToDo: Finns i listan/finns inte i listan
+                        string type = GetInput("Wich Type of Vehicle?","Type"); 
                         var typeList = handler.ListVehicleTypes(type);
-                        if()
-                        Print($"Every {type} in the Garage: ");
                         if (typeList.Count > 0)
+                        {
+                            Print($"Every {type} in the Garage: ");
                             typeList.ForEach(v => Print($"{handler.StringifyOutput(v)}"));
-                        break;
+                        }
+                        else
+                            Print($"There is no {type} in the Garage yet.");
+                            break;
                     case '5':
                         string searched = GetInput("Type in Reg. Number: ","RegNr");
                         if (!handler.RegNumberExists(searched))
