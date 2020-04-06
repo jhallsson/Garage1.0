@@ -57,7 +57,7 @@ namespace Garage_Josefin
                         Print(message);
                         break;
                     case '3':
-                        handler.ListVehicles();
+                        handler.ListVehicles(); //ToDo: bäst med array eller list?
                         break;
                     case '4':
                         string type = GetInput("Wich Type of Vehicle?","Type"); 

@@ -14,7 +14,7 @@ namespace Garage_Josefin
         {
             CreateGarage();
             
-            //FullGarage();
+            FullGarage();
         }
         private void CreateGarage()
         {
@@ -65,12 +65,11 @@ namespace Garage_Josefin
                     //ToDo: bättre lösning!
             }
         }
-       
         public bool Park(Vehicle vehicle)   
         {
             int countBefore = CountVehicles();
             
-            int index = Array.FindIndex(garage.Vehicles, null);
+            int index = Array.FindIndex(garage.Vehicles, v=> v==null);
             garage.Vehicles[index] = vehicle;                   //ToDo: snyggare?
             
             int countAfter = CountVehicles();
@@ -89,10 +88,9 @@ namespace Garage_Josefin
         }
         public void ListVehicles() 
         {
-            Array.ForEach(garage.Vehicles, v =>
-            {
-                string info = v is Vehicle ? StringifyOutput(v) : "Could not list";
-            });
+            var list = new List<string>();
+            Array.ForEach(garage.Vehicles.Where(v => v is Vehicle).ToArray()
+                ,t=>console.Print(StringifyOutput(t))); //Förvirrade mig rejält där, men ville ändå prova med linq!
         }
         internal List<Vehicle> ListVehicleTypes(string type)
         {
