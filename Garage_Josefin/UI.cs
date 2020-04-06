@@ -14,8 +14,6 @@ namespace Garage_Josefin
             
             GarageHandler handler = new GarageHandler(); //anropar creategarage, frågar om kapacitet
             
-            //Print("Garage succesfully built!");
-            
             do
             {
               Print("\nNavigate through the menu by selecting a number." +
@@ -28,6 +26,7 @@ namespace Garage_Josefin
                     "\n 0. Close App");
                 
                 char input = GetInput("","null")[0];
+                string message;
                 switch (input)
                 {
                     case '1':
@@ -53,11 +52,9 @@ namespace Garage_Josefin
                         break;
                     case '2':
                         string leavingVehicle = GetInput("Type in the Reg. Number for the leaving vehicle: ", "RegNr");
-                        bool vehicleleft = handler.Leave(leavingVehicle); 
-                        if (vehicleleft)
-                            Print($"Vehicle {leavingVehicle} left");
-                        else
-                            Print("Vehicle could not leave"); 
+                        bool vehicleleft = handler.Leave(leavingVehicle);
+                        message = vehicleleft ? $"Vehicle {leavingVehicle} left" : "Vehicle could not leave";
+                        Print(message);
                         break;
                     case '3':
                         handler.ListVehicles();
@@ -75,10 +72,8 @@ namespace Garage_Josefin
                             break;
                     case '5':
                         string searched = GetInput("Type in Reg. Number: ","RegNr");
-                        if (!handler.RegNumberExists(searched))
-                            Print($"{searched.ToUpper()} is not in the Garage");
-                        else
-                            Print(handler.Search(searched));
+                        message= !handler.RegNumberExists(searched)?$"{searched.ToUpper()} is not in the Garage":handler.Search(searched);
+                        Print(message);
                         break;
                     case '6':
                         var list = handler.SearchProperty();
@@ -145,16 +140,16 @@ namespace Garage_Josefin
         }
         private bool TryParseInput(string input)
         {
-            bool returnValue = false;
+            bool InputValue = false;
             if (!int.TryParse(input, out int result))
             {
                 Print("Must be a integer number, try again!");
             }
             else
             {
-                returnValue = true;
+                InputValue = true;
             }
-            return returnValue;
+            return InputValue;
         }
         private bool TryParseToDoubleInput(string input)
         {
@@ -170,7 +165,7 @@ namespace Garage_Josefin
             return returnValue;
         }
 
-        public bool TryRegNumbInput(string input)
+        private bool TryRegNumbInput(string input)
         {
             bool returnValue = false; //ToDo: kolla om det redan finns - just nu i menu - ok?
             if (input.Length == 6 /*&& !exists*/)
@@ -191,7 +186,7 @@ namespace Garage_Josefin
             return returnValue;
         }
 
-        public bool TryTypeInput(string input)
+        private bool TryTypeInput(string input)
         {
             bool returnValue = false;
             List<string> typeList = new List<string>() { "airplane", "boat", "bus", "car", "motorcycle" };

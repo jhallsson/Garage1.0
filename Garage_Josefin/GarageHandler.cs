@@ -91,11 +91,6 @@ namespace Garage_Josefin
         {
             Array.ForEach(garage.Vehicles, v =>
             {
-                /*if (v is Vehicle)
-                {
-                    string info = StringifyOutput(v);
-                    console.Print(info);
-                }*/
                 string info = v is Vehicle ? StringifyOutput(v) : "Could not list";
             });
         }
@@ -120,18 +115,9 @@ namespace Garage_Josefin
             string color = console.GetInput("Color: ");
             string wheelCount= console.GetInput("Wheels: ");
 
-            if (!string.IsNullOrEmpty(type))
-            {
-                searchList = TypeListMaker(type);
-            }
-            else
-                searchList = garage.Vehicles.Where(v=> v is Vehicle).ToList(); //Tar med null-platser
-            
-            if (!string.IsNullOrEmpty(color))
-                searchList = searchList.Where(v => v.Color == color).ToList();
-            
-            if (int.TryParse(wheelCount, out int wheels))
-                searchList = searchList.Where(v => v.WheelCount == wheels).ToList();
+            searchList= !string.IsNullOrEmpty(type) ? TypeListMaker(type): garage.Vehicles.Where(v => v is Vehicle).ToList();
+            searchList = !string.IsNullOrEmpty(color)? searchList.Where(v => v.Color == color).ToList(): searchList; //snyggare men ser lite fult ut med else när det inte behövs
+            searchList = int.TryParse(wheelCount, out int wheels)? searchList.Where(v => v.WheelCount == wheels).ToList(): searchList;
 
             return searchList; 
         }
