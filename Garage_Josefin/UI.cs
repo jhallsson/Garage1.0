@@ -39,7 +39,7 @@ namespace Garage_Josefin
                             string regNr = GetInput("Reg. Number: ", "RegNr");
                             if (!handler.RegNumberExists(regNr))
                             {
-                                var vehicle = handler.CreateVehicle(regNr); //ToDo: anropas från park istället?
+                                var vehicle = handler.CreateVehicle(regNr); //ToDo: anropas från park istället? -> kan inte göra färdiga värden utan input då (fullgarage)
                                 bool parked = handler.Park(vehicle); //Todo: global variabel - funkar inte
                                 if (parked)
                                     Print($"Vehicle {vehicle.RegNumb} parked");
@@ -57,15 +57,15 @@ namespace Garage_Josefin
                         if (vehicleleft)
                             Print($"Vehicle {leavingVehicle} left");
                         else
-                            Print("Vehicle could not leave"); //ToDo: felmeddelanden
+                            Print("Vehicle could not leave"); 
                         break;
                     case '3':
                         handler.ListVehicles();
                         break;
                     case '4':
                         string type = GetInput("Wich Type of Vehicle?","Type"); //ToDo: Finns i listan/finns inte i listan
-                        
                         var typeList = handler.ListVehicleTypes(type);
+                        if()
                         Print($"Every {type} in the Garage: ");
                         if (typeList.Count > 0)
                             typeList.ForEach(v => Print($"{handler.StringifyOutput(v)}"));
@@ -101,7 +101,7 @@ namespace Garage_Josefin
         {
             bool wrongInput = true;
             string input;
-            do                  //ToDo: provkör
+            do  
             {
                 Console.WriteLine(message);
                 input = Console.ReadLine().ToLower();  //så att alla värden i grunden är "snygga"
@@ -129,8 +129,6 @@ namespace Garage_Josefin
                     }
                     if (accepted)
                         wrongInput = false;
-                   /* else
-                        Print("Invalid input. Try Again!");*///ToDo: blir dubbel, skippa helt?
                 }
             } while (wrongInput);
             return input;   
@@ -174,7 +172,7 @@ namespace Garage_Josefin
             bool returnValue = false; //ToDo: kolla om det redan finns - just nu i menu - ok?
             if (input.Length == 6 /*&& !exists*/)
             {
-                for (int i = 0; i < 3; i++)     //ToDo: använd linq?
+                for (int i = 0; i < 3; i++)     //ToDo: använd linq? hittar inget bättre
                 {
                     if (char.IsLetter(input[i]))
                         returnValue = true;

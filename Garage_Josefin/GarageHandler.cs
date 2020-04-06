@@ -43,7 +43,7 @@ namespace Garage_Josefin
                     Vehicle airplane = new Airplane(seats, regNr, color, wheels);
                     return airplane;
                 case "boat":
-                    double.TryParse(console.GetInput("Draft: ", "Double"), out double draft);
+                    double draft = double.Parse(console.GetInput("Draft: ", "Double"));
                     Vehicle boat = new Boat(draft, regNr, color, wheels);
                     return boat;
                 case "bus":
@@ -59,8 +59,7 @@ namespace Garage_Josefin
                     Vehicle motorcycle = new Motorcycle(topSpeed, regNr, color, wheels);
                     return motorcycle;
                 default:
-                    console.Print("Something Went Wrong. Try Again.");
-                    //om värdena är checkade borde den inte nå default
+                    console.Print("Something Went Wrong. Try Again."); //om värdena är checkade borde den inte nå default
                     Vehicle v = new Vehicle("---123","---",0);
                     return v;
                     //ToDo: bättre lösning!
@@ -173,7 +172,7 @@ namespace Garage_Josefin
         {
             return garage.Vehicles.Where(v => v is Vehicle).Any(v => v.RegNumb == regNumber);
         }
-        internal bool GarageIsFull()
+        public bool GarageIsFull()
         {
             return CountVehicles() >= garage.GarageCapacity;
         }
