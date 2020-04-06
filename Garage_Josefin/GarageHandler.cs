@@ -84,15 +84,13 @@ namespace Garage_Josefin
         public bool Park(Vehicle vehicle)   //ToDo: Gör om!!
         {
             int countBefore = CountVehicles();
+            
             Vehicle emptyValue = garage.Vehicles.Where(v => v == null).FirstOrDefault();
             int emptyIndex = Array.IndexOf(garage.Vehicles, emptyValue);
-           
             garage.Vehicles[emptyIndex] = vehicle;
-
-            //int count = garage.Vehicles.Count(v => v is Vehicle); //ToDo:move
             
             int countAfter = CountVehicles();
-            return countAfter > countBefore; //statement: true/false smart!!!
+            return countAfter > countBefore;
         }
 
         public bool Leave(string regNr)
@@ -158,19 +156,17 @@ namespace Garage_Josefin
 
         public string Search(string regNr) //ToDo: understand ?-nullcheck / gör om
         {
-            regNr = regNr.ToUpper();            //ToDo: .toUpper fult/fel plats?
-            /*if (RegNumberExists(regNr))
-            {*/
-                Vehicle vehicle = garage.Vehicles?.Where(v => v?.RegNumb == regNr).FirstOrDefault();
-                int index = Array.IndexOf(garage.Vehicles, vehicle);
-                return StringifyOutput(vehicle);
+            regNr = regNr.ToUpper();          
+            Vehicle vehicle = garage.Vehicles?.Where(v => v?.RegNumb == regNr).FirstOrDefault();
+            int index = Array.IndexOf(garage.Vehicles, vehicle);
+            return StringifyOutput(vehicle);
         }
         public List<Vehicle> SearchProperty()
         {
+            List<Vehicle> searchList = new List<Vehicle>();
             string type = console.GetInput("Type: ").ToLower();
             string color = console.GetInput("Color: ");
             string wheelCount= console.GetInput("Wheels: ");
-            List<Vehicle> searchList = new List<Vehicle>();
 
             if (!string.IsNullOrEmpty(type))
             {
@@ -198,12 +194,14 @@ namespace Garage_Josefin
             }
             else
                 searchList = garage.Vehicles.Where(v=> v is Vehicle).ToList(); //Tar med null-platser
+            
             if (!string.IsNullOrEmpty(color))
                 searchList = searchList.Where(v => v.Color == color).ToList();
-            if (int.TryParse(wheelCount, out int wheels))//ToDo: hur gör jag med int?
+            
+            if (int.TryParse(wheelCount, out int wheels))
                 searchList = searchList.Where(v => v.WheelCount == wheels).ToList();
 
-            return searchList; //sorterar bara efter typ
+            return searchList; 
         }
         public string StringifyOutput(Vehicle vehicle) //ToDo: använd .tostring istället?
         {
@@ -230,8 +228,6 @@ namespace Garage_Josefin
             Park(motorcycle);
             Park(airplane);
             Park(bus);
-           
-
         }
     }
 }

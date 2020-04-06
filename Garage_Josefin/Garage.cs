@@ -26,9 +26,9 @@ namespace Garage_Josefin
             Vehicles = new T[GarageCapacity];     //array lika stor som garaget
         }
         public IEnumerator<T> GetEnumerator()
-        {                                     //ToDo: nullCheck
-            foreach (T vehicle in Vehicles) //ToDo: måste vara typ T och inte Vehicle? 
-            {                               //eller går det att byta ut return?
+        {                                     
+            foreach (T vehicle in Vehicles) 
+            {                               
                 if (vehicle != null)
                 {
                     yield return vehicle;
