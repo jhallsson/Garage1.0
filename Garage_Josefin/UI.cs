@@ -12,30 +12,26 @@ namespace Garage_Josefin
             
             Print("Welcome to the Garage App! Start by creating a garage.\n");
             GarageHandler handler = new GarageHandler(); //anropar creategarage, frågar om kapacitet
-
-            //ToDo: check input, check success
+            //ToDo: checka success?
             Print("Garage succesfully built!");
+            
             do
             {
               Print("\nNavigate through the menu by selecting a number." +
                     "\n 1. Park" +
-                    "\n 2. Let Vehicle leave" + //dismiss??
+                    "\n 2. Let Vehicle leave" + 
                     "\n 3. List" +
                     "\n 4. List by Type" +
                     "\n 5. Search" +
-                    "\n 6. Search with properties" + //ToDo: samma eller inte?
+                    "\n 6. Search with properties" +
                     "\n 0. Close App");
                 
-                
                 char input = GetInput("","null")[0];
-
                 switch (input)
                 {
                     case '1':
                         if (handler.GarageIsFull())
-                        {
-                            Print("The Garage is Full! One or More Vehicles Need to Leave");
-                        }
+                           Print("The Garage is Full! One or More Vehicles Need to Leave");
                         else
                         {
                             var vehicle = handler.CreateVehicle();
@@ -61,18 +57,17 @@ namespace Garage_Josefin
                     case '4':
                         string type = GetInput("Wich Type of Vehicle?","Type"); //ToDo: Finns i listan/finns inte i listan
                         
-                            //Print($"All {type}s in the Garage: ");
                         var typeList = handler.ListVehicleTypes(type);
+                        Print($"All {type}s in the Garage: ");
                         if (typeList.Count > 0)
-                        {
                             typeList.ForEach(v => Print($" - {handler.StringifyOutput(v)}"));
-
-                        }
                         break;
                     case '5':
-                        string searched = GetInput("Type in Reg. Number: ");
-                        if (!handler.RegNumberExists(searched))
+                        string searched = GetInput("Type in Reg. Number: ","RegNr");
+                        if (!handler.RegNumberExists(searched)) //KOLLA
                             Print($"{searched.ToUpper()} is not in the Garage");
+                        else
+                            Print(handler.Search(searched));
                         break;
                     case '6':
                         var list = handler.SearchProperty();
@@ -195,7 +190,7 @@ namespace Garage_Josefin
 
         public bool TryRegNumbInput(string input)
         {
-            var handler = new GarageHandler();
+            var handler = new GarageHandler(); //ToDo: kan inte göra ny handler
             bool returnValue = false; //ToDo: kolla om det redan finns
             bool exist = handler.RegNumberExists(input);
             if (input.Length == 6 && !exist)
