@@ -187,13 +187,12 @@ namespace Garage_Josefin
             return returnValue;
         }
         
-
         public bool TryRegNumbInput(string input)
         {
-            var handler = new GarageHandler(); //ToDo: kan inte göra ny handler
+            //var handler = new GarageHandler(); //ToDo: kan inte göra ny handler
             bool returnValue = false; //ToDo: kolla om det redan finns
-            bool exist = handler.RegNumberExists(input);
-            if (input.Length == 6 && !exist)
+            //bool exist = handler.RegNumberExists(input);
+            if (input.Length == 6 /*&& !exist*/)
             {
                 for (int i = 0; i < 3; i++)     //ToDo: använd linq
                 {
