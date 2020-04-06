@@ -97,13 +97,9 @@ namespace Garage_Josefin
         public string Search(string regNr)
         {
             regNr = regNr.ToUpper();
-            Vehicle vehicle = garage.Vehicles?.Where(v => v?.RegNumb == regNr).FirstOrDefault();
-            int index = Array.IndexOf(garage.Vehicles, vehicle);
-
-            /*string match;
-            Array.Find(garage.Vehicles.Where(v => v.RegNumb == regNr).ToArray(),t=> StringifyOutput(t));
-*/
-            return StringifyOutput(vehicle);
+            string match=garage.Vehicles.Where(v => v.RegNumb == regNr)
+                .FirstOrDefault().StringifyOutput();
+            return match;
         }
         public List<Vehicle> SearchProperty()
         {
