@@ -27,7 +27,7 @@ namespace Garage_Josefin
                     "\n 0. Close App");
                 
                 
-                char input = GetInput("")[0];
+                char input = GetInput("","null")[0];
 
                 switch (input)
                 {
@@ -48,7 +48,7 @@ namespace Garage_Josefin
                         }
                         break;
                     case '2':
-                        string leavingVehicle = GetInput("Type in the Reg. Number for the leaving vehicle: ");
+                        string leavingVehicle = GetInput("Type in the Reg. Number for the leaving vehicle: ", "RegNr");
                         bool vehicleleft = handler.Leave(leavingVehicle); 
                         if (vehicleleft)
                             Print($"Vehicle {leavingVehicle} left");
@@ -59,16 +59,15 @@ namespace Garage_Josefin
                         handler.ListVehicles();
                         break;
                     case '4':
-                        string type = GetInput("Wich Type of Vehicle?"); //ToDo: Finns i listan/finns inte i listan
-                        bool validType = TryTypeInput(type); //ToDo: flytta till ListVehicleTypes
-                        if (validType)
-                        {
+                        string type = GetInput("Wich Type of Vehicle?","Type"); //ToDo: Finns i listan/finns inte i listan
+                        
                             //Print($"All {type}s in the Garage: ");
-                            handler.ListVehicleTypes(type);
+                        var typeList = handler.ListVehicleTypes(type);
+                        if (typeList.Count > 0)
+                        {
+                            typeList.ForEach(v => Print($" - {handler.StringifyOutput(v)}"));
 
                         }
-                        else
-                            Print("Invalid input. Try Again");
                         break;
                     case '5':
                         string searched = GetInput("Type in Reg. Number: ");
@@ -81,24 +80,10 @@ namespace Garage_Josefin
                         if (list.Count > 0)
                         {
                             Print("Matching Vehicles: ");
-                            foreach (var vehicle in list)
-                            {
-                                Print($" - {handler.StringifyOutput(vehicle)}");
-                            }
+                            list.ForEach(v=> Print($" - {handler.StringifyOutput(v)}"));
+                           
                         }
                         else Print("No Match!");
-                        /*fråga(vilka /)vilket property(/ max fyra ? )typ, color x, wheels x
-
-                        
-                        
-                        Söka efter fordon utifrån en  egenskap eller flera.
-                        Till exempel alla svarta fordonmed fyra hjul.
-                        Eller enbart alla motorcyklar som är rosa och har 3 hjul
-
-                        (
-                        antingen color brown eller 1.brown 2.brown
-                        eller hitta om det finns något property som heter samma som ex "brown"
-                        if vehicles.color contains*/
                         break; 
                     case '0':
                         Print("Thank You for Using the Garage App! Good Bye!");
@@ -139,6 +124,8 @@ namespace Garage_Josefin
                         case "Int":
                             accepted = TryParseInput(input);
                             break;
+                        default: accepted = true; //för alla andra inputs?
+                            break;
                     }
                     if (accepted)
                         wrongInput = false;
@@ -154,7 +141,7 @@ namespace Garage_Josefin
             string input;
             Console.WriteLine(message);
             input = Console.ReadLine();
-            return input;   //ToDo: "0" ful lösning för tryparse? eller bättre än null?
+            return input;  
             /*bool wrongInput = true;
             do
             {

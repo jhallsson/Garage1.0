@@ -34,30 +34,30 @@ namespace Garage_Josefin
             
             //ToDo: regnr exists already
             
-            string color = console.GetInput("Color: ");
-            int.TryParse(console.GetInput("Number of wheels: "), out int wheels); //else?
+            string color = console.GetInput("Color: ","null");  //behöver nullcheck
+            int.TryParse(console.GetInput("Number of wheels: ", "null"), out int wheels); //else?
             //värden kommer inte tillbaka förrän de är okej
 
             switch (type)
             {
                 case "airplane":
-                    int.TryParse(console.GetInput("Seats: "), out int seats);
+                    int.TryParse(console.GetInput("Seats: ","null"), out int seats);
                     Vehicle airplane = new Airplane(seats, regNr, color, wheels);
                     return airplane;
                 case "boat":
-                    double.TryParse(console.GetInput("Draft: "), out double draft);
+                    double.TryParse(console.GetInput("Draft: ", "null"), out double draft);
                     Vehicle boat = new Boat(draft, regNr, color, wheels);
                     return boat;
                 case "bus":
-                    double.TryParse(console.GetInput("Length: "), out double length);
+                    double.TryParse(console.GetInput("Length: ", "null"), out double length);
                     Vehicle bus = new Bus(length, regNr, color, wheels);
                     return bus;
                 case "car":
-                    string brand = console.GetInput("Which Brand?");
+                    string brand = console.GetInput("Which Brand?", "null");
                     Vehicle car = new Car(brand, regNr, color, wheels);
                     return car;
                 case "motorcycle":
-                    double.TryParse(console.GetInput("Top Speed: "), out double topSpeed);
+                    double.TryParse(console.GetInput("Top Speed: ", "null"), out double topSpeed);
                     Vehicle motorcycle = new Motorcycle(topSpeed, regNr, color, wheels);
                     return motorcycle;
                 default:
@@ -120,50 +120,46 @@ namespace Garage_Josefin
             }
         }
 
-        internal void ListVehicleTypes(string type)
+        internal List<Vehicle> ListVehicleTypes(string type)
         {
             //ToDo: kod
             //lista över typer - gå igenom - hitta rätt - lista
             //if type=list[n] -> 
             //if type= key lista alla i subklass
 
+            var list = new List<Vehicle>();
+            type = type.ToLower();
             foreach (var vehicle in garage.Vehicles)
             {
-                string info="";
+                //string info="";
                 //switch? så länge
-                type = type.ToLower();
                 switch (type)
                 {
                     case "vehicle":
                         ListVehicles();
                         break;
                     case "airplane":
-                        if(vehicle is Airplane)
-                        info = StringifyOutput(vehicle);
+                        list = garage.Vehicles.Where(v => v is Airplane).ToList(); //ToDo: rätt att välja tolist?
                         break;
                     case "boat":
-                        if (vehicle is Boat)
-                        info = StringifyOutput(vehicle);
+                        list = garage.Vehicles.Where(v => v is Boat).ToList(); //ToDo: hitta hur man kan skicka typ
                         break;
                     case "bus":
-                        if (vehicle is Bus)
-                        info = StringifyOutput(vehicle);
+                        list = garage.Vehicles.Where(v => v is Bus).ToList();
                         break;
                     case "car":
-                        if (vehicle is Car)
-                        info = StringifyOutput(vehicle);
+                        list = garage.Vehicles.Where(v => v is Car).ToList();
                         break;
                     case "motorcycle":
-                        if (vehicle is Motorcycle)
-                        info = StringifyOutput(vehicle);
+                        list = garage.Vehicles.Where(v => v is Motorcycle).ToList();
                         break;
                     default: 
-                        info = "The type doesn't exist";
+                        //info = "The type doesn't exist";
                         break;
                 }
-                
-                console.Print(info);
+
             }
+                return list;
         }
 
         public string Search(string regNr) //ToDo: understand ?-nullcheck / gör om
