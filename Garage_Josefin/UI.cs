@@ -58,7 +58,7 @@ namespace Garage_Josefin
                         string type = GetInput("Wich Type of Vehicle?","Type"); //ToDo: Finns i listan/finns inte i listan
                         
                         var typeList = handler.ListVehicleTypes(type);
-                        Print($"All {type}s in the Garage: ");
+                        //Print($"All {type}s in the Garage: ");
                         if (typeList.Count > 0)
                             typeList.ForEach(v => Print($" - {handler.StringifyOutput(v)}"));
                         break;
@@ -204,7 +204,6 @@ namespace Garage_Josefin
                     if (char.IsDigit(input[i]))
                         returnValue = true;
                 }
-                
             }
             if(!returnValue)
                 Print("Invalid Reg. Number. Must be of type 'AAA111'");

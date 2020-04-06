@@ -108,28 +108,23 @@ namespace Garage_Josefin
         public void ListVehicles() 
         {
             //ToDo:funkar inte för null
-            foreach (var vehicle in garage.Vehicles)
+            Array.ForEach(garage.Vehicles, v =>
             {
-                if (vehicle is Vehicle)
+                if (v is Vehicle)
                 {
-                    string info = StringifyOutput(vehicle);
+                    string info = StringifyOutput(v);
                     console.Print(info);
                 }
-            }
+            });
         }
-
         internal List<Vehicle> ListVehicleTypes(string type)
         {
             var list = new List<Vehicle>();
             type = type.ToLower();
-            foreach (var vehicle in garage.Vehicles)
-            {                
-                list = TypeListMaker(list, type);
-            }
+            Array.ForEach(garage.Vehicles, v =>list = TypeListMaker(list, type));
             return list;
         }
-
-        public string Search(string regNr) //ToDo: understand ?-nullcheck / gör om
+        public string Search(string regNr) //ToDo: gör om, förstå "?"
         {
             regNr = regNr.ToUpper();          
             Vehicle vehicle = garage.Vehicles?.Where(v => v?.RegNumb == regNr).FirstOrDefault();
@@ -159,31 +154,30 @@ namespace Garage_Josefin
             return searchList; 
         }
 
-        private List<Vehicle> TypeListMaker(List<Vehicle> searchList, string type)
+        private List<Vehicle> TypeListMaker(List<Vehicle> list, string type)
         {
             switch (type)
             {
                 case "airplane":
-                    searchList = garage.Vehicles.Where(v => v is Airplane).ToList(); //ToDo: rätt att välja tolist?
+                    list = garage.Vehicles.Where(v => v is Airplane).ToList(); //ToDo: rätt att välja tolist?
                     break;
                 case "boat":
-                    searchList = garage.Vehicles.Where(v => v is Boat).ToList(); //ToDo: hitta hur man kan skicka typ
+                    list = garage.Vehicles.Where(v => v is Boat).ToList(); //ToDo: hitta hur man kan skicka typ
                     break;
                 case "bus":
-                    searchList = garage.Vehicles.Where(v => v is Bus).ToList();
+                    list = garage.Vehicles.Where(v => v is Bus).ToList();
                     break;
                 case "car":
-                    searchList = garage.Vehicles.Where(v => v is Car).ToList();
+                    list = garage.Vehicles.Where(v => v is Car).ToList();
                     break;
                 case "motorcycle":
-                    searchList = garage.Vehicles.Where(v => v is Motorcycle).ToList();
+                    list = garage.Vehicles.Where(v => v is Motorcycle).ToList();
                     break;
                 default:
                     console.Print($"There is no such type as {type}"); //ToDo: ska komma direkt
                     break;
             }
-
-            return searchList;
+            return list;
         }
 
         public string StringifyOutput(Vehicle vehicle) //ToDo: använd .tostring istället?
