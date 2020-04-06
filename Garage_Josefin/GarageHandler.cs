@@ -183,7 +183,7 @@ namespace Garage_Josefin
 
         public string StringifyOutput(Vehicle vehicle) //ToDo: använd .tostring istället?
         {
-            return vehicle.StringifyOutput(/*vehicle*/); //ToDo: vehicle-inception?
+            return vehicle.StringifyOutput();
 
         }
         public int CountVehicles()
