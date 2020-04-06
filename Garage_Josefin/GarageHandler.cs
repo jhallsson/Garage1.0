@@ -122,16 +122,10 @@ namespace Garage_Josefin
 
         internal List<Vehicle> ListVehicleTypes(string type)
         {
-            //ToDo: kod
-            //lista över typer - gå igenom - hitta rätt - lista
-            //if type=list[n] -> 
-            //if type= key lista alla i subklass
-
             var list = new List<Vehicle>();
             type = type.ToLower();
             foreach (var vehicle in garage.Vehicles)
             {
-                //string info="";
                 //switch? så länge
                 switch (type)
                 {
@@ -154,7 +148,7 @@ namespace Garage_Josefin
                         list = garage.Vehicles.Where(v => v is Motorcycle).ToList();
                         break;
                     default: 
-                        //info = "The type doesn't exist";
+                        //ToDo: fixa default
                         break;
                 }
 
@@ -170,8 +164,6 @@ namespace Garage_Josefin
                 Vehicle vehicle = garage.Vehicles?.Where(v => v?.RegNumb == regNr).FirstOrDefault();
                 int index = Array.IndexOf(garage.Vehicles, vehicle);
                 return StringifyOutput(vehicle);
-            
-            
         }
         public List<Vehicle> SearchProperty()
         {
@@ -212,14 +204,10 @@ namespace Garage_Josefin
                 searchList = searchList.Where(v => v.WheelCount == wheels).ToList();
 
             return searchList; //sorterar bara efter typ
-
-
         }
         public string StringifyOutput(Vehicle vehicle) //ToDo: använd .tostring istället?
         {
-
             string vehicleInfo = $"{vehicle.RegNumb}, {vehicle.Color}, {vehicle.WheelCount} wheels.";
-
             return vehicleInfo;
         }
         public int CountVehicles()
@@ -229,13 +217,12 @@ namespace Garage_Josefin
         }
         public void FullGarage()
         {
-            //Garage<Vehicle> fullGarage = new Garage<Vehicle>(6);
-            Vehicle car = new Car("Volvo", "ABC123", "red", 4);     //ToDo: rätt deklarerat med Vehicle?
+            Vehicle car = new Car("Volvo", "ABC123", "green", 4);     //ToDo: rätt deklarerat med Vehicle?
             Vehicle car2 = new Car("Ford", "DEF456", "blue", 4);
-            Vehicle boat = new Boat(3.52, "GHI789", "red", 4);
-            Vehicle motorcycle = new Motorcycle(320.7, "JKL012", "red", 4);
-            Vehicle airplane = new Airplane(500, "MNO345", "white", 4);
-            Vehicle bus = new Bus(12.41, "PQR678", "red", 4);
+            Vehicle boat = new Boat(3.52, "GHI789", "red", 0);
+            Vehicle motorcycle = new Motorcycle(320.7, "JKL012", "red", 2);
+            Vehicle airplane = new Airplane(500, "MNO345", "white", 8);
+            Vehicle bus = new Bus(12.41, "PQR678", "blue", 8);
 
             Park(car);
             Park(car2);
