@@ -6,6 +6,8 @@ namespace Garage_Josefin
 {
     public class UI
     {
+        public List<string> typeList = new List<string>() { "airplane", "boat", "bus", "car", "motorcycle" };
+
         public void Menu()
         {
             bool running = true;
@@ -57,8 +59,12 @@ namespace Garage_Josefin
                         Print(message);
                         break;
                     case '3':
-                        handler.ListVehicles();
+                        var countList = new List<string>();
                         
+                        handler.ListVehicles();
+                        countList = handler.TypeCounter();
+                        countList.ForEach(v => Print(v));
+
                         break;
                     case '4':
                         string type = GetInput("Wich Type of Vehicle?","Type"); 
@@ -191,8 +197,7 @@ namespace Garage_Josefin
         private bool TryTypeInput(string input)
         {
             bool returnValue = false;
-            List<string> typeList = new List<string>() { "airplane", "boat", "bus", "car", "motorcycle" };
-
+            
             returnValue = typeList.Contains(input.ToLower());
             if (!returnValue)
                 Print("Must be a valid type. Try Again");

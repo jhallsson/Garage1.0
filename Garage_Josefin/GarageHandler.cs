@@ -14,7 +14,7 @@ namespace Garage_Josefin
         {
             CreateGarage();
             
-            FullGarage();
+            //FullGarage();
         }
         private void CreateGarage()
         {
@@ -60,6 +60,8 @@ namespace Garage_Josefin
                     //ToDo: bättre lösning!
             }
         }
+
+
         public bool Park(Vehicle vehicle)   
         {
             int countBefore = CountVehicles();
@@ -83,6 +85,7 @@ namespace Garage_Josefin
         }
         public void ListVehicles() 
         {
+            // int count = TypeCount();
             Array.ForEach(garage.Vehicles.Where(v => v is Vehicle).ToArray(),
                 t=>console.Print(StringifyOutput(t))); //Förvirrade mig rejält där, men ville ändå prova med linq!
         }
@@ -157,6 +160,13 @@ namespace Garage_Josefin
         {
             int count = garage.Vehicles.Count(v => v is Vehicle);
             return count;
+        }
+        public List<string> TypeCounter()
+        {
+            //var list = garage.Vehicles.GroupBy(v=>v.GetType())
+            var list = new List<string>();
+            console.typeList.ForEach(t => list.Add(($"Type: {t}, Count: {TypeListMaker(t).Count}")));
+            return list;
         }
         public void FullGarage() //använt för test!
         {
