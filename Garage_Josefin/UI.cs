@@ -57,14 +57,16 @@ namespace Garage_Josefin
                         Print(message);
                         break;
                     case '3':
-                        handler.ListVehicles(); 
+                        handler.ListVehicles();
+                        
                         break;
                     case '4':
                         string type = GetInput("Wich Type of Vehicle?","Type"); 
                         var typeList = handler.ListVehicleTypes(type);
+                        
                         if (typeList.Count > 0)
                         {
-                            Print($"Every {type} in the Garage: ");
+                            Print($"Every {type} ({typeList.Count}) in the Garage: ");
                             typeList.ForEach(v => Print($"{handler.StringifyOutput(v)}"));
                         }
                         else

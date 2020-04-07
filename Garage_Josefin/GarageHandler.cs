@@ -14,7 +14,7 @@ namespace Garage_Josefin
         {
             CreateGarage();
             
-            //FullGarage();
+            FullGarage();
         }
         private void CreateGarage()
         {
@@ -86,7 +86,7 @@ namespace Garage_Josefin
             Array.ForEach(garage.Vehicles.Where(v => v is Vehicle).ToArray(),
                 t=>console.Print(StringifyOutput(t))); //Förvirrade mig rejält där, men ville ändå prova med linq!
         }
-        internal List<Vehicle> ListVehicleTypes(string type)
+        public List<Vehicle> ListVehicleTypes(string type)
         {
             var list = new List<Vehicle>();
             type = type.ToLower();
